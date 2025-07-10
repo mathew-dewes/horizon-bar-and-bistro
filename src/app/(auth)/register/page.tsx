@@ -1,4 +1,5 @@
-import Button from "@/app/components/ui/Button";
+import Features from "@/components/layout/Features";
+import Button from "@/components/ui/Button";
 import Link from "next/link";
 
 export default function LoginPage(){
@@ -30,7 +31,7 @@ export default function LoginPage(){
                            
                           </form>
                                 </div>
-                     
+                     <Features/>
                           </div>
   )
 }
