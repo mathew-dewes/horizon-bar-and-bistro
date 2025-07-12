@@ -2,9 +2,14 @@
 
 import { siginInWithGoogle } from "@/lib/actions/authAction"
 
-export default function GoogleButton(){
-    return(
-        <button formAction={siginInWithGoogle}>
+
+
+
+export function AuthForm(){
+return (
+    <div>
+        <form>
+             <button formAction={siginInWithGoogle}>
             <p 
             className={`flex bg-dark-500 p-3 rounded-xl font-semibold cursor-pointer hover:scale-103 hover:bg-accent-500 active:brightness-80`}>
                 Sign in With Google <svg  className="w-6 h-6 ml-2" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 48 48">
@@ -12,6 +17,7 @@ export default function GoogleButton(){
             </svg></p>
                 
         </button>
-    )
+        </form>
+    </div>
+)
 }
-

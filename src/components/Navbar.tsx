@@ -1,3 +1,6 @@
+"use client"
+
+import { signOut } from "@/lib/actions/authAction";
 import Link from "next/link";
 
 export default function Navbar(){
@@ -8,7 +11,11 @@ export default function Navbar(){
             <ul className="flex gap-10">
                 <p className="text-lg">Order</p>
                 <p className="text-lg">Hello</p>
-                <p className="text-lg">Dashboard</p>
+                <form action={signOut}>
+  <button className="cursor-pointer"><p className="text-lg">Logout</p></button>
+                </form>
+              
+                
             </ul>
         </nav>
     )

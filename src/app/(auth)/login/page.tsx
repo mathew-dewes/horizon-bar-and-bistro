@@ -11,6 +11,7 @@ export default function LoginPage() {
       <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis non, fugit iusto ipsa hic enim quasi impedit odit quae praesentium.</p>
       <div className="sm:w-120 mt-20 mx-auto">
         <h1 className="text-center text-2xl font-black">Sign in:</h1>
+        <form>
         <div className="mt-8 text-center sm:flex sm:justify-between sm:justify-items-center">
           <div className="my-5 sm:my-0">
             <GoogleButton />
@@ -21,7 +22,7 @@ export default function LoginPage() {
 
 
         </div>
-        <form action="">
+        
 
           <div className="flex flex-col gap-1 items-center mt-5">
             <label className="font-semibold text-lg sm:text-xl" htmlFor="">Email:</label>

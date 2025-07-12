@@ -2,17 +2,9 @@ import Link from "next/link";
 import BeachBanner from "../components/layout/BeachBanner";
 import Features from "../components/layout/Features";
 import Button from "../components/ui/Button";
-// import { createClientForServer } from "@/lib/supabase/server";
-
 
 export default async function Page(){
 
-  // const supabase = await createClientForServer();
-  // const {data, error} = await supabase.from("products").select()
-  // if (error) console.log(error);
-  // console.log(data);
-  
-  
   return (
     <div>
       <BeachBanner text="Welcome to Horizon Bar and Bistro!"/>
