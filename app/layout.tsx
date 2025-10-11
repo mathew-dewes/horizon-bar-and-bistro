@@ -3,9 +3,7 @@ import { Poppins, Montserrat} from "next/font/google";
 
 import "./globals.css";
 import Navbar from "@/components/navigation/Navbar";
-
-
-
+import BeachBanner from "@/components/BeachBanner";
 
 const poppins = Poppins({
  subsets:["latin"],
@@ -38,9 +36,9 @@ export default function RootLayout({
       >
         
  <Navbar />
+ <BeachBanner/>
 
 
-   
 
         <main className="mx-5 sm:mx-20">
     
