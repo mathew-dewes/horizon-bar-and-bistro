@@ -2,6 +2,9 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "../db/prisma";
+import { getUserId } from "../auth/session";
+
+const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
 
 
 
@@ -80,6 +83,21 @@ revalidatePath('/')
 }
 
 
+export async function clearItemFromCart(productId: string){
+    await wait(500)
+    
+const cart = await activeCart();
+
+if (!cart) return;
+    await prisma.cartItems.delete({
+        where:{cartId_productId: {cartId: cart.id, productId}}
+    });
+
+    revalidatePath('/')
+
+}
+
+
 
 
 
@@ -91,16 +109,20 @@ export async function checkProduct(productId: string, cartId: string){
 }
 
 export async function activeCart(){
+     const userId = await getUserId();
+     if (!userId) return
     return await prisma.cart.findUnique(
-        {where: {userId: "123" }}
+        {where: {userId }}
     );
 
     
 }
 
 export async function createCart(productId: string){
+    const userId = await getUserId();
+         if (!userId) return
     await prisma.cart.create({
-        data: {user:{connect:{id: "123"}}, cartItems:{
+        data: {user:{connect:{id: userId}}, cartItems:{
             create:{
                 product:{
                     connect: {id: productId},

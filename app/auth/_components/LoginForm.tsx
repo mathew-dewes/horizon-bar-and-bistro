@@ -29,6 +29,7 @@ export default function LoginForm(){
             console.log(result.message);
         } else {
             router.push("/");
+            router.refresh()
   
         }
    
