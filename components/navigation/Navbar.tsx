@@ -1,8 +1,10 @@
-import prisma from "@/server/db/prisma";
+
 import Link from "next/link"
 import LogoutButton from "../LogoutButton";
 
-export default async function Navbar() {
+import CartCouter from "./CartCounter";
+
+export default  function Navbar() {
 
     const navLinks = [
         { href: "/", label: "Menu" },
@@ -12,17 +14,8 @@ export default async function Navbar() {
 
     ];
 
-const cart = await prisma.cart.findUnique({
-  where: { userId: "123" },
-  include: { cartItems: true },
-});
 
-const totalQuantity = cart?.cartItems.reduce(
-  (sum, item) => sum + item.quantity,
-  0
-);
 
-    
     return (
         <nav className="flex justify-between mx-5 sm:mx-20 items-center h-30">
             <Link href={'/'}><h1 className="font-bold">Horizon Bar and Bistro</h1></Link>
@@ -32,14 +25,14 @@ const totalQuantity = cart?.cartItems.reduce(
                     return <Link href={link.href} key={key}>{link.label}</Link>
                 })}
                 <div>
-             
-        <Link className="relative" href="/checkout">Checkout <span 
-        className={`absolute -top-2 -right-3 text-sm text-green-500 ${totalQuantity === 0 ? "hidden" : ""}`}>{totalQuantity}</span></Link>
+
+                    <Link className="relative" href="/checkout">Checkout
+                 <CartCouter/></Link>
                 </div>
-    
-            <LogoutButton/>
+
+                <LogoutButton />
             </ul>
-     
+
         </nav>
     )
 }

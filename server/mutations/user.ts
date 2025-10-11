@@ -5,6 +5,7 @@ import { loginUserSchema, registerUserSchema } from "../validation/schema";
 import { auth } from "../auth/auth";
 import { APIError } from "better-auth";
 import { headers } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export async function RegisterUser(values: z.infer<typeof registerUserSchema>){
         const validate = registerUserSchema.safeParse(values);
@@ -25,6 +26,8 @@ export async function RegisterUser(values: z.infer<typeof registerUserSchema>){
             email, password, name, callbackURL: "/",
         }
     });
+
+    revalidatePath('/')
 
     return {status: "success", message: "User created successfully"}
         } catch (error) {
@@ -72,7 +75,7 @@ export async function LoginUser(values: z.infer<typeof loginUserSchema>) {
     });
    
     
-
+   revalidatePath('/')
         return {
         status: "success", message: "User created successfully"
     }
