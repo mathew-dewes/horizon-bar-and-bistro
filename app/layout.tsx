@@ -44,7 +44,9 @@ export default function RootLayout({
     
         {children}
         </main>
-        {/* <Footer/> */}
+       <footer className="h-30">
+
+       </footer>
 
 
          
