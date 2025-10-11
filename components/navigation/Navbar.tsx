@@ -1,5 +1,6 @@
 import prisma from "@/server/db/prisma";
 import Link from "next/link"
+import LogoutButton from "../LogoutButton";
 
 export default async function Navbar() {
 
@@ -36,7 +37,7 @@ const totalQuantity = cart?.cartItems.reduce(
         className={`absolute -top-2 -right-3 text-sm text-green-500 ${totalQuantity === 0 ? "hidden" : ""}`}>{totalQuantity}</span></Link>
                 </div>
     
-            <Link href="">Logout</Link>
+            <LogoutButton/>
             </ul>
      
         </nav>

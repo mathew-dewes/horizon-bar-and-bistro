@@ -1,9 +1,11 @@
 "use client";
 
 import ErrorMessage from "@/components/ErrorMessage";
+import { LoginUser } from "@/server/mutations/user";
 import { loginUserSchema } from "@/server/validation/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -12,12 +14,23 @@ import z from "zod";
 type FormFields = z.infer<typeof loginUserSchema>
 
 export default function LoginForm(){
+      const router = useRouter();
       const [serverError, setServerError] = useState("");
           const { register, handleSubmit, formState: { errors, isSubmitting } } =
         useForm<FormFields>({ resolver: zodResolver(loginUserSchema) });
 
             const onSubmit = async (values: FormFields) => {
-   console.log(values);
+        const result = await LoginUser(values);
+
+
+
+        if (result.status === "error") {
+            setServerError(result.message)
+            console.log(result.message);
+        } else {
+            router.push("/");
+  
+        }
    
 
     }
@@ -40,14 +53,15 @@ export default function LoginForm(){
       </label>
       <label className="block mb-4 text-sm font-medium text-gray-900 dark:text-white">Forgot password? Click HERE to reset
       </label>
-
+           <p className="my-5 text-red-500">{serverError}</p>
       <div className="flex gap-5">
   <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">{isSubmitting ? "Logging in" : "Login"}</button>
-     <p className="mt-5 text-red-500">{serverError}</p>
+
   <Link href={'/auth/register'} className="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create account</Link>
- 
+
 
       </div>
+ 
       
   
 
