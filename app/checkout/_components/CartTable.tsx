@@ -21,8 +21,9 @@ export default async function CartTable(){
                             <thead className="bg-sky-300">
                                 <tr>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">product</th>
-                                                                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Price</th>
+                                                                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Unit Price</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">QTY</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">COST</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Actions</th>
                                 </tr>
                             </thead>
@@ -40,6 +41,7 @@ export default async function CartTable(){
                                             </td>
                                             <td className="px-6 py-4 text-sm">${item.product.price}.00</td>
                                             <td className="px-6 py-4 text-sm">{item.quantity}</td>
+                                            <td className="px-6 py-4 text-sm">${item.quantity * item.product.price}.00</td>
                         
                                             <td className="px-6 py-4 text-sm relative">
                                                 <div className="flex gap-2">
