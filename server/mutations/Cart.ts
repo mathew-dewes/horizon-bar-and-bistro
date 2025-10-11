@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import prisma from "../db/prisma";
 
 
@@ -36,6 +37,8 @@ data:{
 
 }
 
+revalidatePath('/')
+
 
 
 }
@@ -68,6 +71,8 @@ if (product?.quantity != 1){
     })
     
 }
+
+revalidatePath('/')
 
 
 
