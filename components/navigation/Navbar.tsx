@@ -6,8 +6,7 @@ export default async function Navbar() {
     const navLinks = [
         { href: "/", label: "Menu" },
         { href: "/auth/login", label: "Auth" },
-        { href: "/auth/login", label: "Auth" },
-        { href: "/user/orders", label: "Logout" },
+
 
 
     ];
@@ -28,11 +27,18 @@ const totalQuantity = cart?.cartItems.reduce(
             <Link href={'/'}><h1 className="font-bold">Horizon Bar and Bistro</h1></Link>
 
             <ul className="flex gap-10">
-                <p>Cart: {totalQuantity}</p>
                 {navLinks.map((link, key) => {
                     return <Link href={link.href} key={key}>{link.label}</Link>
                 })}
+                <div>
+             
+        <Link className="relative" href="/checkout">Checkout <span 
+        className={`absolute -top-2 -right-3 text-sm text-green-500 ${totalQuantity === 0 ? "hidden" : ""}`}>{totalQuantity}</span></Link>
+                </div>
+    
+            <Link href="">Logout</Link>
             </ul>
+     
         </nav>
     )
 }
