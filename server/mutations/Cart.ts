@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import prisma from "../db/prisma";
 import { getUserId } from "../auth/session";
 
-const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
+// const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
 
 
 
@@ -84,7 +84,7 @@ revalidatePath('/')
 
 
 export async function clearItemFromCart(productId: string){
-    await wait(500)
+
     
 const cart = await activeCart();
 
