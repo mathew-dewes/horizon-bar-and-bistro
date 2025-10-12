@@ -1,14 +1,14 @@
 
 import ClearItemsButton from "@/app/(menu)/_components/ClearItemsButton";
 import RemoveProductButton from "@/app/(menu)/_components/RemoveProductButton";
-import { getCartItems } from "@/server/queries/cart";
+import { getCartList } from "@/server/queries/cart";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
 export default async function CartTable(){
 
     
-         const cartItems = await getCartItems();
+         const cartItems = await getCartList();
          const totalItems = cartItems.reduce((sum, item)=> sum + item.quantity, 0);
 
          if (totalItems == 0) redirect('/');
