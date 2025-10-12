@@ -1,7 +1,11 @@
+
 import LoginForm from "../_components/LoginForm";
+import { SessionCheck } from "@/server/auth/session";
 
 
-export default function page(){
+export default async function page(){
+
+    await SessionCheck();
     return (
         <div>
             <div className="text-center">
