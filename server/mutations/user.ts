@@ -109,6 +109,8 @@ export async function LogoutUser(){
         const result = await auth.api.signOut({
         headers: await headers()
     });
-
+    revalidatePath('/')
     return result;
+
+
 }

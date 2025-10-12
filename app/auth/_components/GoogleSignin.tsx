@@ -1,10 +1,15 @@
+import { signInSocial } from "@/server/auth/login";
 import GoogleIcon from "./GoogleIcon";
+
+
 
 export default function GoogleSignin(){
     return (
-        <button className="bg-gray-700 p-3 w-full text-sm rounded-xl font-semibold flex justify-center">
+        <button type="button" 
+        onClick={()=> signInSocial("google")}
+        className="bg-gray-700 font-medium cursor-pointer p-3 w-full text-sm rounded-xl  flex justify-center items-center">
             <GoogleIcon/>
-            Google
+            Sign in with Google
          </button>
     )
 }
