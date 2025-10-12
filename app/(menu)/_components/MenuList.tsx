@@ -2,36 +2,29 @@ import { getProductList } from "@/server/queries/products"
 import Image from "next/image";
 import AddProductButton from "./AddProductButton";
 import RemoveProductButton from "./RemoveProductButton";
-import prisma from "@/server/db/prisma";
-import { getUserId } from "@/server/auth/session";
+
 import ClearItemsButton from "./ClearItemsButton";
+import { getCartItems } from "@/server/queries/cart";
+import { Category } from "@prisma/client";
 
-export default async function MenuList() {
+export default async function MenuList({category}:
+    {category?: string}
+) {
+
+    console.log(category);
+    
 
 
-    const productList = await getProductList();
-    const userId = await getUserId();
-
-    const cartItems = await prisma.cartItems.findMany({
-        where: {
-            cart: { userId }
-        },
-        select: {
-            quantity: true,
-            productId: true
-        }
-    });
-
-    const cartMap = new Map(cartItems.map(item => [item.productId, item.quantity]));
+    const productList = await getProductList(category as Category);
+    const cartItems = await getCartItems();
 
 
 
     return (
-        <div>
-            <h1>Menu List</h1>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10">
+      
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-10 animate-fadeIn">
                 {productList.map((product) => {
-                    const quantityInCart = cartMap.get(product.id) || 0;
+                    const quantityInCart = cartItems?.get(product.id) || 0;
                     const productInCart = quantityInCart > 0
 
 
@@ -83,6 +76,6 @@ export default async function MenuList() {
 
             </div>
 
-        </div>
+   
     )
 }
