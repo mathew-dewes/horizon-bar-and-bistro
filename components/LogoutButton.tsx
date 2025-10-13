@@ -8,8 +8,9 @@ export default function LogoutButton(){
 
     async function handleSignOut(){
         // await clearCart();
-        await LogoutUser();
-        router.push("/auth/login")
+        const table = await LogoutUser();
+        
+        router.push("/auth/login?table=" + table)
     }
     return <button className="cursor-pointer hidden lg:block" onClick={handleSignOut}>Logout</button>
 }

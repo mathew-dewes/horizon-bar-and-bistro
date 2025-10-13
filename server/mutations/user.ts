@@ -7,7 +7,8 @@ import { APIError } from "better-auth";
 import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { clearCart } from "./Cart";
-import { cancelTable } from "./table";
+import { unAssignTable } from "./table";
+
 
 export async function RegisterUser(values: z.infer<typeof registerUserSchema>){
         const validate = registerUserSchema.safeParse(values);
@@ -112,12 +113,14 @@ export async function LoginUser(values: z.infer<typeof loginUserSchema>) {
 export async function LogoutUser(){
       
         await clearCart();
-          await cancelTable();
-        const result = await auth.api.signOut({
+        const table = await unAssignTable();
+        await auth.api.signOut({
         headers: await headers()
     });
+
+    
     revalidatePath('/')
-    return result;
+    return table;
 
 
 }

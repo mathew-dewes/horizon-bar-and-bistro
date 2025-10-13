@@ -5,71 +5,45 @@ import prisma from "../db/prisma";
 
 
 
-export async function checkTable(tableNumber: string){
-const table = await prisma.table.findUnique({
-    where: {
-        tableNumber
-    }
-});
-
- if (!table) return null;
-
- if (table.active && table.timeOut && new Date() > table.timeOut){
-
-     await clearTable(tableNumber);
-    return { ...table, active: false, user: null, timeOut: null };
- }
-   return table;
-
-};
-
-
-export async function clearTable(tableNumber: string){
-          await prisma.table.update({
-            where:{tableNumber},
-            data:{
-                active: false, timeOut: null,
-            }
-        })
-};
-
-
-
-
-
 export async function assignTable(tableNumber: string){
     const userId = await getUserId();
     if (!userId) return;
+  await prisma.table.update({
+    where: { tableNumber },
+    data: {
+      users: {
+        connect: { id: userId },
+      },
 
-      const now = new Date();
-    await prisma.user.update({
-        data:{
-           table:{
-            connect:{
-                tableNumber
-            },
-            update:{
-                active: true,
-                timeOut: new Date(now.getTime() + 60 * 60 * 1000
-            )
-            }
-           }
-        },
-        where:{
-            id:userId
-        }
-    })
+    },
+  });
+};
+
+export async function unAssignTable(){
+ const userId = await getUserId();
+  if (!userId) return;
+
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    include: { table: true },
+  });
+
+  
+
+  if (!user?.table.length) return;
+
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      table: {
+        set: [],
+      },
+    },
+  });
+
+  return user.tableId;
 }
 
 
-export async function cancelTable(){
-        const userId = await getUserId();
-    if (!userId) return;
-
-    await prisma.table.update({
-        data:{active:false, userId:null, timeOut: null},
-        where: {userId}
-    })
-}
 
 
