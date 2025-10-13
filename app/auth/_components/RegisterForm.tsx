@@ -26,7 +26,7 @@ export default function RegisterForm() {
             console.log(result.message);
 
         } else {
-            router.push("/");
+            router.push("/?category=Beer");
             router.refresh()
         }
 

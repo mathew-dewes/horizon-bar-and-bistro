@@ -30,6 +30,9 @@ body {
   b{
     @apply font-semibold
   }
+  p{
+    @apply text-sm
+  }
 }
 
 @keyframes fadeIn {

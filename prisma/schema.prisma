@@ -19,6 +19,9 @@ model User {
   sessions      Session[]
   accounts      Account[]
   cart          Cart?
+  table Table? @relation(fields: [tableId], references: [tableNumber])
+  tableId String? @unique
+
 
   @@unique([email])
   @@map("user")
@@ -88,6 +91,7 @@ model Cart{
     userId String @unique
     user User @relation(fields: [userId], references: [id])
     cartItems CartItems[]
+
 }
 
 model CartItems {
@@ -102,6 +106,13 @@ model CartItems {
 }
 
 
+model Table {
+      tableNumber String @id
+      active Boolean @default(false)
+      user User? @relation
+      lastActive DateTime?
+}
+
 
 enum Category {
 Spirits
@@ -110,3 +121,4 @@ Dessert
 Food
 Beer
 }
+

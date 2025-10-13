@@ -3,6 +3,7 @@ import CartTable from "./_components/CartTable";
 import Link from "next/link";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import CancelButton from "./_components/CancelButton";
 
 
 export default function page(){
@@ -14,8 +15,9 @@ export default function page(){
             <CartTable/>
             </Suspense>
 
-            <div className="mt-5">
+            <div className="mt-5 flex gap-2">
                 <Link href={'/confirmation'}><Button text="Confirm"/></Link>
+                <CancelButton />
  
 
             </div>

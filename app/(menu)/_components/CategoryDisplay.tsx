@@ -4,12 +4,15 @@ import Image from "next/image"
 export default function CategoryDisplay({category}:{category: string}){
     return (
          <div>
-              <h1 className="mt-10 font-bold text-center text-2xl">Category Display:</h1>
-            <div className="md:grid-cols-5 sm:grid-cols-3 gap-10 mt-10 grid grid-cols-2 justify-items-center" >
+              <h1 className="font-bold text-center text-2xl">Categories:</h1>
+            <div className=" mt-10 
+          flex gap-6 overflow-x-auto px-5 scrollbar-hide scroll-smooth
+         md:overflow-visible md:justify-center md:gap-10
+          justify-items-center" >
                 {['Beer', 'Cocktails' ,'Spirits','Food', 'Dessert' ].map((cat, i)=>{
                     return (
-                        <div key={i}>
-                            <Link scroll={false} href={`?category=${cat}`}>
+                        <div className="flex-shrink-0 text-center mt-2 mb-3" key={i}>
+                            <Link  scroll={false} href={`?category=${cat}`}>
                              <Image 
                              className={`duration-300 ease-in-out rounded-full hover:scale-110 shadow-2xl hover:shadow-sky-300/20 
                                 hover:border-sky-300 cursor-pointer h-30 w-30 object-cover border-3 border-amber-50 focus: focus:scale-95
