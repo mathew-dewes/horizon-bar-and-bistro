@@ -26,7 +26,7 @@ export default async function page({ searchParams }:
   
 
     if (!params.category){
-    redirect(`/?category=Beer&table=${table}`)
+    redirect(`/?category=Beer`)
   };
 
 

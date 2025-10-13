@@ -148,3 +148,24 @@ export async function cancelOrder() {
     });
     redirect('/?category=Beer')
 }
+
+export async function clearCart(){
+    const userId = await getUserId();
+    if (!userId) return;
+
+    const cart = await prisma.cart.findUnique(
+        {where: {
+            userId
+        }}
+    );
+if (cart){
+  await prisma.cart.delete({
+        where:{
+            userId
+        }
+    });
+    }
+
+ 
+    
+}

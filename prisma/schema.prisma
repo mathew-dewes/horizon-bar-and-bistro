@@ -19,7 +19,7 @@ model User {
   sessions      Session[]
   accounts      Account[]
   cart          Cart?
-  table Table? @relation(fields: [tableId], references: [tableNumber])
+  table Table?
   tableId String? @unique
 
 
@@ -109,8 +109,9 @@ model CartItems {
 model Table {
       tableNumber String @id
       active Boolean @default(false)
-      user User? @relation
-      lastActive DateTime?
+      user User? @relation (fields: [userId], references: [id])
+      timeOut DateTime?
+      userId String? @unique
 }
 
 

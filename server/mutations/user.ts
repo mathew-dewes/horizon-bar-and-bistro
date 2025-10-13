@@ -8,6 +8,8 @@ import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { getUserId } from "../auth/session";
 import prisma from "../db/prisma";
+import { clearCart } from "./Cart";
+import { cancelTable, clearTable } from "./table";
 
 export async function RegisterUser(values: z.infer<typeof registerUserSchema>){
         const validate = registerUserSchema.safeParse(values);
@@ -110,6 +112,9 @@ export async function LoginUser(values: z.infer<typeof loginUserSchema>) {
 }
 
 export async function LogoutUser(){
+      
+        await clearCart();
+          await cancelTable();
         const result = await auth.api.signOut({
         headers: await headers()
     });

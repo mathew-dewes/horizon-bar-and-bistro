@@ -11,18 +11,24 @@ export default async function page({ searchParams }:
     const tableNumber = params.table;
 
     await SessionCheck();
+    
+    if (!tableNumber) return <p>Thank you for shopping at HB Bristo.</p>
 
       const table = await checkTable(tableNumber);
 
-  console.log(table?.active);
+      
 
     if (!tableNumber){
         return <p>Thank you for shoping at HB Bristo! If you wish to order items. Please scan one of our tables.</p>
     }
 
     if (table?.active){
-        return <p>Hello. This table is occupied, please try another table</p>
+        return <p>This table is occupied. Please try another one</p>
     }
+
+
+
+
     return (
         <div>
             <div className="text-center">
