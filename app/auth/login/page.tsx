@@ -12,15 +12,15 @@ export default async function page({ searchParams }:
 
     await SessionCheck();
     
-    if (!tableNumber) return <p>Thank you for shopping at HB Bristo.</p>
+    if (!tableNumber){
+        return <p>Thank you for shoping at HB Bristo! If you wish to order items. Please scan one of our tables.</p>
+    }
 
       const table = await checkTable(tableNumber);
 
       
 
-    if (!tableNumber){
-        return <p>Thank you for shoping at HB Bristo! If you wish to order items. Please scan one of our tables.</p>
-    }
+
 
     if (table?.active){
         return <p>This table is occupied. Please try another one</p>

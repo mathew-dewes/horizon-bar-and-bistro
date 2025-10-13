@@ -39,7 +39,7 @@ export default async function MenuList({ category }:
 
                             </div>
                             {quantityInCart > 0 &&
-                                <div className="md:absolute">
+                                <div>
                                     <div className="mt-5 flex gap-2 justify-center md:justify-start">
                                         <p>QTY added:</p>
                                         {quantityInCart > 0 && (

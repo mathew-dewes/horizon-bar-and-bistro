@@ -6,10 +6,8 @@ import { auth } from "../auth/auth";
 import { APIError } from "better-auth";
 import { headers } from "next/headers";
 import { revalidatePath } from "next/cache";
-import { getUserId } from "../auth/session";
-import prisma from "../db/prisma";
 import { clearCart } from "./Cart";
-import { cancelTable, clearTable } from "./table";
+import { cancelTable } from "./table";
 
 export async function RegisterUser(values: z.infer<typeof registerUserSchema>){
         const validate = registerUserSchema.safeParse(values);
