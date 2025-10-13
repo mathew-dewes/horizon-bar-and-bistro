@@ -1,6 +1,8 @@
 
 import GoogleSignin from "./GoogleSignin";
-import SpotifyLogin from "./SpotifyLogin";
+// import SpotifyLogin from "./SpotifyLogin";
+
+// To do, Add spotify Logic after deployment
 
 
 

@@ -1,5 +1,4 @@
 
-import { checkTable } from "@/server/mutations/table";
 import LoginForm from "../_components/LoginForm";
 import { SessionCheck } from "@/server/auth/session";
 
@@ -16,15 +15,7 @@ export default async function page({ searchParams }:
         return <p>Thank you for shoping at HB Bristo! If you wish to order items. Please scan one of our tables.</p>
     }
 
-      const table = await checkTable(tableNumber);
-
-      
-
-
-
-    if (table?.active){
-        return <p>This table is occupied. Please try another one</p>
-    }
+ 
 
 
 

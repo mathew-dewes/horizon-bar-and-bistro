@@ -19,12 +19,17 @@ model User {
   sessions      Session[]
   accounts      Account[]
   cart          Cart?
-  table Table?
+  table Table[] 
   tableId String? @unique
 
 
   @@unique([email])
   @@map("user")
+}
+
+model Table {
+      tableNumber String @id
+      users User[]
 }
 
 model Session {
@@ -106,13 +111,7 @@ model CartItems {
 }
 
 
-model Table {
-      tableNumber String @id
-      active Boolean @default(false)
-      user User? @relation (fields: [userId], references: [id])
-      timeOut DateTime?
-      userId String? @unique
-}
+
 
 
 enum Category {
