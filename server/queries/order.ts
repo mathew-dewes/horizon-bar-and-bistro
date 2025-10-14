@@ -12,6 +12,11 @@ export async function getOrder(orderNumber: number){
         }
     });
     return order
+};
+
+
+export async function getOrders(){
+    return await prisma.order.findMany()
 }
 
 

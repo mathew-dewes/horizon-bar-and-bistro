@@ -1,4 +1,5 @@
 
+
 import LoginForm from "../_components/LoginForm";
 import { SessionCheck } from "@/server/auth/session";
 
@@ -34,6 +35,7 @@ export default async function page({ searchParams }:
 
 
             <LoginForm tableNumber={tableNumber} />
+
             <div>
 
             </div>

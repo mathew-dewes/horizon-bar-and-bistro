@@ -4,9 +4,16 @@ import Link from "next/link";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import CancelButton from "./_components/CancelButton";
+import { getCartItems } from "@/server/queries/cart";
 
 
-export default function page(){
+export default async function page(){
+    
+    const cartItems = await getCartItems();
+
+    console.log(cartItems);
+    
+    
     return (
         <div>
             <h1 className="text-xl font-semibold">Cart:</h1>

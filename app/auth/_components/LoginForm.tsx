@@ -13,6 +13,7 @@ import SocialProviders from "./SocialProviders";
 import { assignTable } from "@/server/mutations/table";
 
 
+
 type FormFields = z.infer<typeof loginUserSchema>
 
 export default function LoginForm({ tableNumber }:
@@ -80,6 +81,13 @@ export default function LoginForm({ tableNumber }:
                 <h2 className="font-semibold text-center">Social providers:</h2>
                 <SocialProviders tableNumber={tableNumber}/>
             </div>
+
+            <Link href={`/dashboard?table=${tableNumber}`}><button type="button" className="text-white cursor-pointer mt-10 bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">View Dashboard</button>
+
+    </Link>
+   
+    
+   
 
 
 

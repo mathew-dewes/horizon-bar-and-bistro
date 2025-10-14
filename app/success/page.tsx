@@ -12,6 +12,9 @@ const params = await searchParams;
   
     const order = await getOrder(Number(orderNumber));
 
+
+    
+
     
     
     return (
@@ -21,7 +24,7 @@ const params = await searchParams;
             <div className="mt-10 flex gap-5">
                 <Link href={`/auth/login?table=${order?.tableNumber}`}><Button text="Return to Login"/></Link>
 
-                <Link href={'/dashboard'}><Button text="View Dashboard"/></Link>
+                <Link href={`/dashboard?table=${order?.tableNumber}`}><Button text="View Dashboard"/></Link>
            
           
 

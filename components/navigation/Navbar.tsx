@@ -12,7 +12,8 @@ export default async function Navbar() {
 
     return (
         <nav className="flex justify-between mx-5 sm:mx-20 items-center h-30">
-            <Link href={'/'}><h1 className="font-bold">Horizon Bar and Bistro</h1></Link>
+            {session ? <Link href={'/'}><h1 className="font-bold">Horizon Bar and Bistro</h1></Link> : <h1 className="font-bold">Horizon Bar and Bistro</h1>}
+
 
             {session && <ul className="flex gap-10">
 
@@ -20,7 +21,7 @@ export default async function Navbar() {
 
                 <div>
 
-                    <CheckoutLink/>
+                    <CheckoutLink />
                 </div>
 
                 <LogoutButton />

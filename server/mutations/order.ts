@@ -7,10 +7,6 @@ import { getCartItems } from "../queries/cart";
 import { getTableNumber } from "../queries/table";
 import { LogoutUser } from "./user";
 
-interface OrderItem {
-    productId: string;
-    quantity: number;
-}
 
 
 export async function PlaceOrder() {
@@ -21,22 +17,27 @@ export async function PlaceOrder() {
 
     if (!tableNumber || !cartItems) return
 
-    const orderItems: OrderItem[] = [];
 
-    cartItems.forEach((quantity, productId) => {
-        orderItems.push({ quantity, productId })
+  const orderItems = Array.from(cartItems.entries()).map(([productId, { quantity }]) => ({
+    quantity,
+    productId,
+  }));
 
-    });
-
+    const totalCost = Array.from(cartItems.values()).reduce(
+    (sum, { quantity, price }) => sum + quantity * price,
+    0
+  );
     await prisma.order.create({
         data: {
             userId,
+
             orderItems: {
                 create: orderItems
 
             },
             orderNumber,
-            tableNumber
+            tableNumber,
+            cost: totalCost
 
         }
     });
