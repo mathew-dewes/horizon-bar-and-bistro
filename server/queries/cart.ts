@@ -38,11 +38,24 @@ export async function getCartItems(){
         },
         select: {
             quantity: true,
-            productId: true
+            productId: true,
+            product:{
+                select:{
+                    price: true
+                }
+            }
         }
     });
 
-    return new Map(cartItems.map(item => [item.productId, item.quantity]));
+  return new Map(
+    cartItems.map((item) => [
+      item.productId,
+      {
+        quantity: item.quantity,
+        price: item.product.price,
+      },
+    ])
+  );
 }
 
 

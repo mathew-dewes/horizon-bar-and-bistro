@@ -1,6 +1,6 @@
 import { getStock } from "@/server/queries/products"
 
-export default async function InventoryStats(){
+export default async function StockLevels(){
 
   const products = await getStock();
   

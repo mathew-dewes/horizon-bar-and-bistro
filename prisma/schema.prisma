@@ -121,6 +121,7 @@ model Order {
     orderItems OrderItems[]
     orderNumber Int
     tableNumber String
+    cost Float
 
 }
 

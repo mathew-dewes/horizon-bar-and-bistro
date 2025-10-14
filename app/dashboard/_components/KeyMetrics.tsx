@@ -1,8 +1,39 @@
 import { TrendingUp } from "lucide-react";
 import SalesByCategory from "./SalesByCatergory";
 import TopSellingProducts from "./TopSellingProduct";
+import { getOrders } from "@/server/queries/order";
 
 export default async function KeyMetrics() {
+
+  const orders = await getOrders();
+
+  console.log(new Date());
+  
+
+const today = new Date();
+today.setHours(0, 0, 0, 0); // start of today (midnight)
+
+const dailyOrders = orders.reduce((total, order) => {
+  // if order.createdAt is today, increment total
+  return order.createdAt >= today ? total + 1 : total;
+}, 0);
+
+
+  
+
+
+  
+
+  const totalRevenue = orders.reduce((total, currentValue) =>{
+    return total + currentValue.cost
+  }, 0);
+
+  const averageOrderValue = totalRevenue / orders.length || 0;
+  
+
+
+  
+  
 
   // To do -> Get product data to populate sales by category
   return (
@@ -14,7 +45,7 @@ export default async function KeyMetrics() {
         <div className="grid grid-cols-3 gap-6">
           <div className="text-center">
             <div className="text-2xl font-bold text-gray-900">
-              $212.05
+              ${totalRevenue}.00
             </div>
             <div className="text-sm text-gray-600">Total Revenue</div>
             <div className="flex items-center justify-center mt-1">
@@ -27,7 +58,7 @@ export default async function KeyMetrics() {
 
           <div className="text-center">
             <div className="text-2xl font-bold text-gray-900">
-              $15
+              ${averageOrderValue}.00
             </div>
             <div className="text-sm text-gray-600">Average order value</div>
             <div className="flex items-center justify-center mt-1">
@@ -40,9 +71,9 @@ export default async function KeyMetrics() {
 
           <div className="text-center">
             <div className="text-2xl font-bold text-gray-900">
-              1
+              {dailyOrders}
             </div>
-            <div className="text-sm text-gray-600">Low Stock</div>
+            <div className="text-sm text-gray-600">Orders Served Today</div>
             <div className="flex items-center justify-center mt-1">
               <span className="text-sm text-green-600">+1</span>
               <TrendingUp className="w-3 h-3 text-green-600 ml-1" />

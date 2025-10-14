@@ -18,7 +18,10 @@ export default async function MenuList({ category }:
 
         <div className="grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-10 mt-10 animate-fadeIn">
             {productList.map((product) => {
-                const quantityInCart = cartItems?.get(product.id) || 0;
+                const cart = cartItems?.get(product.id)
+                const quantityInCart = cart?.quantity || 0;
+
+                
                 const productInCart = quantityInCart > 0
 
 
