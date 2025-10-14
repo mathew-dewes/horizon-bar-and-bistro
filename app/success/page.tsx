@@ -20,8 +20,10 @@ const params = await searchParams;
             <p className="mt-2">A waiter will be with your shortly with your order</p>
             <div className="mt-10 flex gap-5">
                 <Link href={`/auth/login?table=${order?.tableNumber}`}><Button text="Return to Login"/></Link>
+
+                <Link href={'/dashboard'}><Button text="View Dashboard"/></Link>
            
-                <Button text="View Dashboard"/>
+          
 
             </div>
         </div>
