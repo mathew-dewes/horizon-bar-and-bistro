@@ -11,7 +11,7 @@ export default async function page({ searchParams }:
 
     await SessionCheck();
     
-    if (!tableNumber){
+    if (!tableNumber || tableNumber == "undefined"){
         return <p>Thank you for shoping at HB Bristo! If you wish to order items. Please scan one of our tables.</p>
     }
 

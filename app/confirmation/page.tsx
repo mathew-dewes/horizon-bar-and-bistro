@@ -8,6 +8,9 @@ export default async function page(){
     const user  = await getUserInfo();
 
     
+    
+
+    
     return(
         <div>
             <h1>Confirmation page</h1>
