@@ -1,7 +1,9 @@
 "use client";
 
 import Button from "@/components/Button";
+import { PlaceOrder } from "@/server/mutations/order";
 import { useState } from "react";
+import Form from 'next/form'
 
 export default function OrderForm() {
     const [checked, setChecked] = useState(false);
@@ -12,8 +14,9 @@ export default function OrderForm() {
 
 
     };
+
     return (
-        <form className="mt-10" action="">
+        <Form  className="mt-10" action={PlaceOrder}>
             <div className="flex gap-2 items-center">
            <input onChange={handleChange} id="default-checkbox" type="checkbox" checked={checked} required
                 className={` w-4 h-4 accent-sky-300 border-gray-300 rounded-sm focus:ring-sky-300`
@@ -28,6 +31,6 @@ export default function OrderForm() {
                 </div>
 
 
-        </form>
+        </Form>
     )
 }
