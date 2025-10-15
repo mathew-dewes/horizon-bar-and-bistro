@@ -8,9 +8,6 @@ import { getOrders } from "@/server/queries/order";
 export default async function KeyMetrics() {
   const { dailyOrders, totalRevenue, averageOrderValue} = await getOrders();
 
-
-
-
   return (
     <div className="bg-white rounded-lg p-6">
       <h2 className="text-lg font-bold uppercase text-gray-900 mb-6">

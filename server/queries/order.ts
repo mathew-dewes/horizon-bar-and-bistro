@@ -1,5 +1,6 @@
 "use server";
 
+import { Category } from "@prisma/client";
 import prisma from "../db/prisma";
 
 
@@ -36,8 +37,8 @@ const totalRevenue = orders.reduce((total, currentValue) =>{
 }
 
 
-export async function getOrdersByCategory(){
-    return await prisma.orderItems.findMany({
+export async function getCategoryStats(){
+    const ordersItems = await prisma.orderItems.findMany({
         select:{
             quantity: true,
             product:{
@@ -46,7 +47,35 @@ export async function getOrdersByCategory(){
                 }
             }
         }
-    })
+    });
+
+      const totals: Record<Category, number> = {
+        Spirits: 0,
+        Cocktails: 0,
+        Beer: 0,
+        Dessert: 0,
+        Food: 0,
+      };
+    
+      for (const order of ordersItems) {
+        const category = order.product.category;
+        totals[category] = (totals[category] || 0) + order.quantity;
+      }
+    
+    const totalQuantity = Object.values(totals).reduce((sum, qty) => sum + qty, 0);
+    
+    
+      const percentages: Record<Category, number> = {} as Record<Category, number>;
+      (Object.keys(totals) as Category[]).forEach((category) => {
+        percentages[category] = Number(((totals[category] / totalQuantity) * 100).toFixed(1));
+      });
+    
+    const topCategory = Object.entries(percentages).reduce(
+      (max, [category, value]) => (value > max.value ? { category, value } : max),
+      { category: "", value: -Infinity }
+    );
+
+    return {totalQuantity, percentages, topCategory}
 }
 
 
