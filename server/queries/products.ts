@@ -1,6 +1,6 @@
 "use server";
 
-import { Category } from "@prisma/client";
+import { $Enums, Category } from "@prisma/client";
 import prisma from "../db/prisma";
 
 
@@ -51,3 +51,24 @@ export async function getEffciencyStats(){
 
       return {inStockPercentage, lowStockPercentage, outOfStockPercentage}
 }
+
+
+async function getCategories(){
+      return await prisma.product.findMany({
+    select:{
+      category: true,
+      orderItems:{
+        select:{
+          quantity: true
+        }
+      }
+    },
+
+  });
+}
+
+export async function getSalesByCategory(){
+
+}
+
+

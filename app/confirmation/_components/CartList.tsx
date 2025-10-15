@@ -11,7 +11,10 @@ export default async function CartList(){
 
          if (totalItems == 0) redirect('/');
          
-         const totalCost = cartItems.reduce((sum, item)=> sum + item.product.price, 0);
+         
+ const totalCost = cartItems.reduce((total, item) => {
+  return total + item.quantity * item.product.price;
+}, 0);
         
     return (
         <div>

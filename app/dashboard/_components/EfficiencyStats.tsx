@@ -1,5 +1,5 @@
 import { getEffciencyStats } from "@/server/queries/products";
-import StockDonut from "./EfficencyDonut";
+import StockDonut from "./SalesByCategoryDonut";
 
 
 
