@@ -1,5 +1,6 @@
 
 
+import { redirect } from "next/navigation";
 import LoginForm from "../_components/LoginForm";
 import { SessionCheck } from "@/server/auth/session";
 
@@ -13,7 +14,7 @@ export default async function page({ searchParams }:
     await SessionCheck();
     
     if (!tableNumber || tableNumber == "undefined"){
-        return <p>Thank you for shoping at HB Bristo! If you wish to order items. Please scan one of our tables.</p>
+        redirect('/auth/login?table=1')
     }
 
  
