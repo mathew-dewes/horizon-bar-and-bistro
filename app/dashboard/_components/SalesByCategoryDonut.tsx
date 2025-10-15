@@ -3,25 +3,29 @@
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 interface Props {
-  inStock: number;
-  lowStock: number;
-  outOfStock: number;
+  spirits: number;
+  cocktails: number;
+  beer: number;
+  dessert: number;
+  food: number
 }
 
-export default function StockDonut({ inStock, lowStock, outOfStock }: Props) {
-  const data = [
-    { name: "In Stock", value: inStock },
-    { name: "Low Stock", value: lowStock },
-    { name: "Out of Stock", value: outOfStock },
+export default function SalesByCategoryDonut({ spirits, cocktails, beer, dessert, food }: Props) {
+  const categories = [
+    { name: "Spirits", value: spirits }, // red
+    { name: "Cocktails", value: cocktails }, //yellow
+    { name: "Beer", value: beer }, //orange
+    { name: "Dessert", value: dessert },
+    { name: "Food", value: food },
   ];
 
-  const COLORS = ["#59AC77", "#7c3aed", "#e5e7eb"]; // purple shades + gray
+  const COLORS = ["#DC3545", "#FFC107", "#FF9F40", "#6610F2", "#28A745" ]; // purple shades + gray
 
   return (
     <ResponsiveContainer width={200} height={200}>
       <PieChart>
         <Pie
-          data={data}
+          data={categories}
           dataKey="value"
           nameKey="name"
           cx="50%"
@@ -32,7 +36,7 @@ export default function StockDonut({ inStock, lowStock, outOfStock }: Props) {
           startAngle={90}
           endAngle={-270} // clockwise
         >
-          {data.map((entry, index) => (
+          {categories.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
