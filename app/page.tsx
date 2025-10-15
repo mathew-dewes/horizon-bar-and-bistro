@@ -29,11 +29,6 @@ export default async function page({ searchParams }:
     redirect(`/?category=Beer`)
   };
 
-
-
-
-
-
   return (
     <div>
      <h2 className="text-center mb-10">Welcome to our new ordering system. Browse our fine selection of products below and click the add button to add the product to your cart</h2>

@@ -38,7 +38,7 @@ export default async function TopSellingProducts(){
                  
                    </div>
                    <div className="mt-10">
-               <PieKeys label="Productss" values={values}/>
+               <PieKeys label="Products" values={values}/>
                    </div>
       
       </div>

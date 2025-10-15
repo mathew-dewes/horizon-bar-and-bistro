@@ -7,10 +7,12 @@ import StockLevels from "./_components/StockLevels";
 
 
 export default async function page({ searchParams }:
-  { searchParams: Promise<{ table: string }> }
+  { searchParams: Promise<{ table: string, filter: string }> }
 ) {
   const params = await searchParams;
   const tableNumber = params.table;
+  const filter = params.filter;
+  
   return (
     <div className="min-h-screen">
       <SideBar currentPath="/dashboard" tableNumber={tableNumber} />
@@ -19,7 +21,7 @@ export default async function page({ searchParams }:
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <KeyMetrics />
-          <WeeklySales />
+          <WeeklySales filter={filter} tableNumber={tableNumber}/>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
