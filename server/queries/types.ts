@@ -1,0 +1,1 @@
+export type SalesInterval = 'hour' | 'day' | 'month' | 'year'

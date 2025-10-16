@@ -3,10 +3,7 @@
 import { addToCart } from "@/server/mutations/Cart";
 import { useTransition } from "react";
 
-const danger = false;
-const text = "Add +";
-
-export default function AddProductButton({productId}:{productId: string}){
+export default function AddProductButton({productId, disable}:{productId: string, disable: boolean}){
       const [isPending, startTransition] = useTransition();
 
       function onSubmit(){
@@ -15,7 +12,7 @@ export default function AddProductButton({productId}:{productId: string}){
         })
       }
     return (
-         <button disabled={isPending} onClick={onSubmit} className={`px-2 text-sm py-2 rounded font-semibold cursor-pointer ${danger ? "bg-red-400 hover:bg-red-600" : "bg-sky-400 hover:bg-sky-600"}`}>{text}</button>
+         <button disabled={isPending || disable} onClick={onSubmit} className={`px-2 text-sm py-2 rounded font-semibold  ${disable ? "bg-red-400" : "bg-sky-400 cursor-pointer hover:bg-sky-600"}`}>Add +</button>
 
     )
 }

@@ -5,10 +5,6 @@ import prisma from "../db/prisma";
 import { getUserId } from "../auth/session";
 import { redirect } from "next/navigation";
 
-// const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
-
-
-
 
 export async function addToCart(productId: string) {
     let cart;
