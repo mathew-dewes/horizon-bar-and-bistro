@@ -2,6 +2,7 @@
 
 import { Category } from "@prisma/client";
 import prisma from "../db/prisma";
+import { SalesInterval } from "./types";
 
 
 export async function getOrder(orderNumber: number){
@@ -153,4 +154,45 @@ export async function getWeeklySales(){
   });
 
   return dailyData;
+}
+
+const intervalConfig = {
+  hour:  { format: '%H:00',     count: 24, step: 3600000 },
+  day:   { format: '%w',        count: 7,  step: 86400000 },
+  month: { format: '%d %b',     count: 28, step: 86400000 },
+  year:  { format: '%m',        count: 12, step: 2.628e9 },
+} as const
+
+export async function getOrdersOverTime(interval: SalesInterval) {
+  const { format, count, step } = intervalConfig[interval]
+
+  const rows = await prisma.$queryRawUnsafe<{ key: string; value: number }[]>(`
+    SELECT 
+      strftime('${format}', "createdAt") AS key,
+      COUNT(*) AS value
+    FROM "Order"
+    WHERE "createdAt" >= datetime('now', '-${count} ${interval}s')
+    GROUP BY key
+    ORDER BY key
+  `)
+
+  const now = Date.now()
+
+  return Array.from({ length: count }, (_, i) => {
+    const d = new Date(now - (count - i - 1) * step)
+
+    const label =
+      interval === 'hour'
+        ? d.toLocaleTimeString('en-NZ', { hour: '2-digit', hour12: false }) + ':00'
+        : interval === 'day'
+        ? d.toLocaleDateString('en-NZ', { weekday: 'short' })
+        : interval === 'month'
+        ? d.toLocaleDateString('en-NZ', { day: '2-digit', month: 'short' })
+        : d.toLocaleDateString('en-NZ', { month: 'short' })
+
+    return {
+      value: label,
+      orders: rows.find(r => r.key === label)?.value ?? 0,
+    }
+  })
 }
