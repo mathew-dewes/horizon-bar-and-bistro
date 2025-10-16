@@ -1,4 +1,5 @@
 import { getStock } from "@/server/queries/products"
+import EfficiencyStats from "./EfficiencyStats";
 
 export default async function StockLevels(){
 
@@ -6,13 +7,9 @@ export default async function StockLevels(){
   
   
     return (
-        <div className="bg-white rounded-lg border border-gray-200 p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold uppercase text-gray-900">
-                Stock Levels
-              </h2>
-            </div>
-            <div className="space-y-3">
+        <div className="bg-white rounded-lg p-6">
+          <EfficiencyStats/>
+            <div className="space-y-3 mt-5">
               {products.map((product, key) => {
                 const stockLevel =
                   product.inventoryAmount === 0

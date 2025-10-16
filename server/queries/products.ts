@@ -26,7 +26,8 @@ export async function getStock(){
         },
         orderBy:{
           inventoryAmount:"asc"
-        }
+        },
+        take: 5
     });
 }
 

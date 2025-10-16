@@ -1,6 +1,5 @@
 import SideBar from "./_components/Sidebar";
 import KeyMetrics from "./_components/KeyMetrics";
-import EfficiencyStats from "./_components/EfficiencyStats";
 import DashboardHeader from "./_components/DashboardHeader";
 import StockLevels from "./_components/StockLevels";
 import SalesData from "./_components/SalesData";
@@ -27,7 +26,7 @@ export default async function page({ searchParams }:
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <StockLevels />
-          <EfficiencyStats />
+ 
         </div>
       </main>
     </div>)

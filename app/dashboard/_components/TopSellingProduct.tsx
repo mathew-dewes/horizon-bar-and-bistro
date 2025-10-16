@@ -11,6 +11,7 @@ export default async function TopSellingProducts(){
   const products = await getTopSellingProducts();
 
   const values = await getTopProductsWithOther(products);
+  
 
   const topProduct = values[0];
 
