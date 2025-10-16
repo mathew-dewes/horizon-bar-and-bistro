@@ -5,6 +5,7 @@ import prisma from "../db/prisma";
 import { SalesInterval } from "./types";
 
 
+
 export async function getOrder(orderNumber: number){
 
     const order = await prisma.order.findFirst({
@@ -157,42 +158,69 @@ export async function getWeeklySales(){
 }
 
 const intervalConfig = {
-  hour:  { format: '%H:00',     count: 24, step: 3600000 },
-  day:   { format: '%w',        count: 7,  step: 86400000 },
-  month: { format: '%d %b',     count: 28, step: 86400000 },
-  year:  { format: '%m',        count: 12, step: 2.628e9 },
+  hour:  { count: 24, step: 60 * 60 * 1000 },
+  day:   { count: 7,  step: 24 * 60 * 60 * 1000 },
+  month: { count: 28, step: 24 * 60 * 60 * 1000 },
+  year:  { count: 12, step: 30 * 24 * 60 * 60 * 1000 },
 } as const
 
 export async function getOrdersOverTime(interval: SalesInterval) {
-  const { format, count, step } = intervalConfig[interval]
+  const { count, step } = intervalConfig[interval]
+  const now = new Date()
+  const fromDate = new Date(now.getTime() - count * step)
 
-  const rows = await prisma.$queryRawUnsafe<{ key: string; value: number }[]>(`
-    SELECT 
-      strftime('${format}', "createdAt") AS key,
-      COUNT(*) AS value
-    FROM "Order"
-    WHERE "createdAt" >= datetime('now', '-${count} ${interval}s')
-    GROUP BY key
-    ORDER BY key
-  `)
+  const orders = await prisma.order.findMany({
+    where: { createdAt: { gte: fromDate } },
+    select: { createdAt: true },
+  })
 
-  const now = Date.now()
+  // Pre-group orders for efficiency
+  const orderMap = new Map<string, number>()
+  for (const order of orders) {
+    const d = new Date(order.createdAt)
+    let key: string
+
+    switch (interval) {
+      case 'hour':
+        key = d.getHours().toString().padStart(2, '0') + ':00'
+        break
+      case 'day':
+        key = d.toLocaleDateString('en-NZ', { weekday: 'short' })
+        break
+      case 'month':
+        key = d.toLocaleDateString('en-NZ', { day: '2-digit', month: 'short' })
+        break
+      case 'year':
+        key = d.toLocaleDateString('en-NZ', { month: 'short', year: 'numeric' })
+        break
+    }
+
+    orderMap.set(key, (orderMap.get(key) ?? 0) + 1)
+  }
 
   return Array.from({ length: count }, (_, i) => {
-    const d = new Date(now - (count - i - 1) * step)
+    const bucketDate = new Date(now.getTime() - (count - i - 1) * step)
+    let label: string
 
-    const label =
-      interval === 'hour'
-        ? d.toLocaleTimeString('en-NZ', { hour: '2-digit', hour12: false }) + ':00'
-        : interval === 'day'
-        ? d.toLocaleDateString('en-NZ', { weekday: 'short' })
-        : interval === 'month'
-        ? d.toLocaleDateString('en-NZ', { day: '2-digit', month: 'short' })
-        : d.toLocaleDateString('en-NZ', { month: 'short' })
+    switch (interval) {
+      case 'hour':
+        label = bucketDate.getHours().toString().padStart(2, '0') + ':00'
+        break
+      case 'day':
+        label = bucketDate.toLocaleDateString('en-NZ', { weekday: 'short' })
+        break
+      case 'month':
+        label = bucketDate.toLocaleDateString('en-NZ', { day: '2-digit', month: 'short' })
+        break
+      case 'year':
+        label = bucketDate.toLocaleDateString('en-NZ', { month: 'short', year: 'numeric' })
+        break
+    }
 
     return {
       value: label,
-      orders: rows.find(r => r.key === label)?.value ?? 0,
+      orders: orderMap.get(label) ?? 0,
     }
   })
 }
+

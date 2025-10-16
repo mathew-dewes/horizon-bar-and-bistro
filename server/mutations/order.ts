@@ -42,11 +42,40 @@ export async function PlaceOrder() {
         }
     });
 
+
+ orderItems.forEach(async order => {
+      await updateDateInventory(order.productId, order.quantity)
+    });
+    
+
+   
+
+    
+
+    
+
     await LogoutUser();
     redirect('/success?order=' + orderNumber)
 
 
 
+}
+
+
+
+async function updateDateInventory(productId: string, value: number){
+  await prisma.product.update({
+    where:{
+      id: productId
+    },
+    data:{
+      inventoryAmount: {
+        decrement: value
+      }
+    },
+    
+    
+  })
 }
 
 

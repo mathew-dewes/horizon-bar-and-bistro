@@ -18,7 +18,7 @@ export default async function TopSellingProducts(){
 
     return (
 
-      <div className="flex items-center gap-20">
+      <div className="flex items-center gap-10">
 <div className="w-fit mt-10">
                <h2 className="font-semibold text-sm uppercase text-gray-900 text-center">
                  Top Selling Product
@@ -37,7 +37,7 @@ export default async function TopSellingProducts(){
                    </div>
                  
                    </div>
-                   <div className="mt-10">
+                   <div className="mt-10 w-full">
                <PieKeys label="Products" values={values}/>
                    </div>
       

@@ -22,7 +22,7 @@ export default async function SalesByCategory(){
 
     return (
 
-      <div className="flex items-center flex-wrap md:gap-20">
+      <div className="flex items-center gap-10">
 <div className="w-fit mt-10">
                <h2 className="font-semibold text-sm uppercase text-gray-900 text-center">
                  Sales by Category
@@ -42,7 +42,7 @@ export default async function SalesByCategory(){
                    </div>
                  
                    </div>
-                   <div className="mt-10">
+                   <div className="mt-10 w-full">
                <PieKeys label="Categories" values={categories}/>
                    </div>
       

@@ -10,9 +10,9 @@ export default async function SalesData({tableNumber, filter}:{
 
 
   const orders = await getOrdersOverTime(filter);
-  
 
-    
+  
+  
   
   const filterHref = tableNumber ? `/dashboard?table=${tableNumber}&` : 
   `/dashboard&`

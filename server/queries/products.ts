@@ -9,7 +9,7 @@ export async function getProductList(category: Category){
  
     const products = await prisma.product.findMany({
         select: {
-            id: true, name: true, description: true, category: true, imageUrl: true, price: true
+            id: true, name: true, description: true, category: true, imageUrl: true, price: true, inventoryAmount: true
         },
         where:{
             category: category
@@ -23,6 +23,9 @@ export async function getStock(){
     return await prisma.product.findMany({
         select:{
             name: true, inventoryAmount: true
+        },
+        orderBy:{
+          inventoryAmount:"asc"
         }
     });
 }

@@ -40,7 +40,7 @@ export default async function KeyMetrics() {
           </div>
         </div>
         {/* Donut graphs */}
-        <div className="mt-10 justify-evenly">
+        <div className="mt-10">
    
           <SalesByCategory/>
           <TopSellingProducts/>

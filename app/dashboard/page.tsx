@@ -22,7 +22,7 @@ export default async function page({ searchParams }:
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <KeyMetrics />
-          <SalesData filter={filter} tableNumber={tableNumber}/>
+          <SalesData filter={filter || "hour"} tableNumber={tableNumber}/>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
