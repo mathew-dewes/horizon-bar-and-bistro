@@ -18,6 +18,24 @@ export async function getProductList(category: Category){
     return products;
 }
 
+export async function getProductDetails(page: number){
+  return await prisma.product.findMany({
+    select:{
+      id: true,
+      name:true,
+      price: true,
+      inventoryAmount: true,
+      category: true
+    },
+    take: 5,
+    skip: (page - 1) * 5
+  })
+}
+
+  //  where,
+    //         orderBy: { createdAt: "desc" },
+    //         skip: (page - 1) * pageSize,
+    //         take: pageSize,
 
 export async function getStock(){
     return await prisma.product.findMany({

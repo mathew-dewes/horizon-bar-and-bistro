@@ -3,7 +3,7 @@ import { BarChart3, Package, Plus } from "lucide-react";
 import Link from "next/link";
 
 export default async function SideBar({ currentPath = '/dashboard', tableNumber }:
-    { currentPath: string, tableNumber: string }
+    { currentPath: string, tableNumber?: string }
 ){
 
         const session = await getSession();
@@ -19,7 +19,7 @@ export default async function SideBar({ currentPath = '/dashboard', tableNumber 
         const navigation = [
         { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
         { name: "Orders", href: "/dashboard/orders", icon: Package },
-        { name: "Products", href: "/add-product", icon: Plus },
+        { name: "Products", href: "/dashboard/products", icon: Plus },
         { name: isLoggedIn() , href: `/auth/login?table=${tableNumber}`, icon: Plus },
 
     ];

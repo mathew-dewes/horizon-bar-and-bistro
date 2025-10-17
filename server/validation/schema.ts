@@ -11,3 +11,7 @@ export const registerUserSchema = z.object({
     email: z.email(),
     password: z.string().min(8, "Password must be 8 or more characters"),
 });
+
+export const updateQuantitySchema = z.object({
+  value: z.number().min(1),
+});

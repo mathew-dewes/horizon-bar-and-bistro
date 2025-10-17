@@ -1,55 +1,31 @@
-import { getProductDetails } from "@/server/queries/products";
 import SideBar from "../_components/Sidebar";
 import Pagination from "./_components/Pagination";
 import ProductList from "../products/_components/ProductList";
 import { Suspense } from "react";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { getProductDetails } from "@/server/queries/products";
 
 
 export default async function InventoryPage({ searchParams }:
     { searchParams: Promise<{ q?: string, page?: string }> }) {
-
-    // const user = await getCurrentUser();
-    // const userId = user.id;
     const params = await searchParams;
     const q = (params.q ?? "").trim();
 
     const pageSize = 5;
     const page = Math.max(1, Number(params.page ?? 1));
-
-    const products = await getProductDetails(page);
-
-    console.log(products);
-
-
-
-    // const where = { userId, ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}) }
-
-    // const [totalCount, items] = await Promise.all([
-    //     prisma.product.count({ where }),
-    //     await prisma.product.findMany({
-    //         where,
-    //         orderBy: { createdAt: "desc" },
-    //         skip: (page - 1) * pageSize,
-    //         take: pageSize,
-    //     })]);
-
-
-
     const totalPages = Math.max(1, Math.ceil(15 / pageSize));
 
-
-
+    const products = await getProductDetails(page);
 
 
     return (
         <div className="min-h-screen bg-gray-50">
-            <SideBar currentPath="/dashboard/orders" />
+            <SideBar currentPath="/dashboard/products" />
             <main className="ml-64 p-8">
                 <div className="mb-8">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h1 className="text-2xl font-semibold text-gray-900">Orders</h1>
+                            <h1 className="text-2xl font-semibold text-gray-900">Products</h1>
                             <p className="text-sm text-gray-500">Manage your products and track inventory levels.</p>
                         </div>
                     </div>
@@ -63,14 +39,13 @@ export default async function InventoryPage({ searchParams }:
                             <thead className="bg-gray-50">
                                 <tr>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">SKU</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantity</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">New QTY</th>
                                 </tr>
                             </thead>
                             <Suspense fallback={<LoadingSpinner text="Hello"/>}>
-            <ProductList page={page}/>
+            <ProductList products={products}/>
                             </Suspense>
 
                
@@ -81,7 +56,7 @@ export default async function InventoryPage({ searchParams }:
                         <Pagination
                             currentPage={page}
                             totalPages={totalPages}
-                            baseUrl="/dashboard/orders"
+                            baseUrl="/dashboard/products"
                             searchParams={{
                                 q, pageSize: String(pageSize)
                             }}

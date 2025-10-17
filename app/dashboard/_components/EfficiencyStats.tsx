@@ -46,7 +46,7 @@ export default async function EfficiencyStats() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <div className="text-2xl font-bold text-gray-900">
-                {stockPercentages[0].value}%
+                {stockPercentages[0].value.toFixed(1)}%
               </div>
               <div className="text-sm text-gray-600">In Stock</div>
             </div>
