@@ -24,7 +24,7 @@ export default async function page({ searchParams }:
           <SalesData filter={filter || "hour"} tableNumber={tableNumber}/>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="mb-8">
           <StockLevels />
  
         </div>

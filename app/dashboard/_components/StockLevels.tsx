@@ -7,9 +7,9 @@ export default async function StockLevels(){
   
   
     return (
-        <div className="bg-white rounded-lg p-6">
+        <div className="bg-white rounded-lg p-6 flex flex-wrap gap-10">
           <EfficiencyStats/>
-            <div className="space-y-3 mt-5">
+            <div className="space-y-3 mt-5 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 w-fit">
               {products.map((product, key) => {
                 const stockLevel =
                   product.inventoryAmount === 0
@@ -31,7 +31,7 @@ export default async function StockLevels(){
                 return (
                   <div
                     key={key}
-                    className="flex items-center justify-between p-3 rounded-lg bg-gray-50"
+                    className="flex  flex-col p-5 rounded-lg bg-gray-50"
                   >
                     <div className="flex items-center space-x-3">
                       <div
