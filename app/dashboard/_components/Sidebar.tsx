@@ -25,7 +25,7 @@ export default async function SideBar({ currentPath = '/dashboard', tableNumber 
     ];
 
 
-    return <div className="absolute let-0 top-55 bg-gray-600 rounded-2xl text-white w-64 min-h-screen p-6 z-10 mt-35">
+    return <div className="absolute let-0 top-55 bg-gray-600 rounded-2xl text-white w-64 min-h-screen p-6 z-10 mt-35 hidden lg:block">
 
         <nav className="space-y-1">
             <div className="text-sm font-semibold text-gray-400 uppercase mb-2">Insights</div>

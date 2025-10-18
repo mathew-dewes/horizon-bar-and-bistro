@@ -122,7 +122,7 @@ model Order {
     orderNumber Int
     tableNumber String
     cost Float
-    status String?
+    status OrderStatus @default(PENDING)
 
 }
 
@@ -134,11 +134,9 @@ model OrderItems {
       orderId String
       product Product @relation(fields: [productId], references: [id])
       order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+      ready Boolean @default(false)
 
 }
-
-
-
 
 
 enum Category {
@@ -148,4 +146,12 @@ Dessert
 Food
 Beer
 }
+
+enum OrderStatus {
+  PENDING
+  INPROGRESS
+  COMPLETE
+}
+
+
 

@@ -4,6 +4,8 @@ import { Poppins, Montserrat} from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navigation/Navbar";
 import BeachBanner from "@/components/BeachBanner";
+import { getSession } from "@/server/auth/session";
+
 
 const poppins = Poppins({
  subsets:["latin"],
@@ -21,11 +23,13 @@ export const metadata: Metadata = {
   description: "Come enjoy a cold one at HB Bristo!",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+      const session = await getSession();
   return (
     <html lang="en">
       <body
@@ -35,7 +39,7 @@ export default function RootLayout({
         `}
       >
         
- <Navbar />
+<Navbar session={session}/>
  <BeachBanner/>
 
 

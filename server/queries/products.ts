@@ -29,16 +29,10 @@ export async function getProductDetails(page: number){
     },
     take: 5,
     skip: (page - 1) * 5,
-    orderBy:{
-      inventoryAmount: "asc"
-    }
+
   })
 }
 
-  //  where,
-    //         orderBy: { createdAt: "desc" },
-    //         skip: (page - 1) * pageSize,
-    //         take: pageSize,
 
 export async function getStock(){
     return await prisma.product.findMany({
