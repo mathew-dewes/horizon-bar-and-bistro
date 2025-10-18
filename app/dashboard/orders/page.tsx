@@ -31,7 +31,7 @@ export default async function ordersPage({ searchParams }:
     return (
         <div className="min-h-screen">
             <SideBar currentPath="/dashboard/orders" />
-            <main className="ml-64 px-8 mt-10">
+            <main className="lg:ml-64 px-8 mt-10">
         
                 <div className="mb-8">
                     <div className="flex items-center justify-between">

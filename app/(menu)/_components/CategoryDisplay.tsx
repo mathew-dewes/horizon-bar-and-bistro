@@ -3,7 +3,7 @@ import Image from "next/image"
 
 export default function CategoryDisplay({category}:{category: string}){
     return (
-         <div>
+         <div className="">
               <h1 className="font-bold text-center text-2xl">Categories:</h1>
             <div className=" mt-10 
           flex gap-6 overflow-x-auto px-5 scrollbar-hide scroll-smooth
@@ -14,9 +14,9 @@ export default function CategoryDisplay({category}:{category: string}){
                         <div className="flex-shrink-0 text-center mt-2 mb-3" key={i}>
                             <Link  scroll={false} href={`?category=${cat}`}>
                              <Image 
-                             className={`duration-300 ease-in-out rounded-full hover:scale-110 shadow-2xl hover:shadow-sky-300/20 
+                             className={`duration-300 ease-in-out rounded-full hover:scale-110 shadow-2xl hover:shadow-sky-300/20
                                 hover:border-sky-300 cursor-pointer h-30 w-30 object-cover border-3 border-amber-50 focus: focus:scale-95
-                                ${category === cat ? 'border-sky-300 hover:shadow-sky-300/20 scale-110': ""}`}  
+                                  ${category === cat ? 'border-sky-300 scale-110' : ''}`}  
                              height={100} 
                              width={100} 
                              alt="categorie" 

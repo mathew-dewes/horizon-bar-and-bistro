@@ -16,7 +16,7 @@ export default async function page({ searchParams }:
   return (
     <div className="min-h-screen">
       <SideBar currentPath="/dashboard" tableNumber={tableNumber} />
-      <main className="ml-64 px-8 mt-10">
+      <main className="lg:ml-64 px-8 mt-10">
         <DashboardHeader />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
