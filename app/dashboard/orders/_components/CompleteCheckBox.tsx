@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { changeOrderStatus } from "@/server/queries/order";
+import { toggleReadyStatus } from "@/server/queries/order";
 
 export default function CompleteCheckBox({orderId}:
   {orderId: string}
@@ -21,7 +21,7 @@ export default function CompleteCheckBox({orderId}:
 
       setTimeout(async () => {
 
-        await changeOrderStatus(orderId, "Complete")
+        await toggleReadyStatus("cmgwuoeiy0005uhdch300v4bz", true)
   
    
       }, 600); 

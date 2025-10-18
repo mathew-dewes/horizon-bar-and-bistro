@@ -1,5 +1,5 @@
 "use client";
-console.log("✅ UpdateQuantityForm loaded in browser");
+
 
 
 import ErrorMessage from "@/components/ErrorMessage";
@@ -19,7 +19,7 @@ type FormFields = z.infer<typeof updateQuantitySchema>;
 export function UpdateQuantityForm({ productId }:
     { productId: string }
 ) {
-    const [success, setSuccess] = useState(false);
+
     const [serverError, setServerError] = useState(false);
     const { register, handleSubmit, formState: { errors, isSubmitting }, reset } =
         useForm<FormFields>({ resolver: zodResolver(updateQuantitySchema) });
@@ -32,13 +32,13 @@ export function UpdateQuantityForm({ productId }:
         const result = await updateInventory(productId, newQuantity);
 
         if (result.status === "error") {
-            setSuccess(false)
+   
             setServerError(true)
             console.log(result.message);
         } else {
             reset();
             setServerError(false)
-            setSuccess(true)
+        
         }
 
 
@@ -58,9 +58,7 @@ export function UpdateQuantityForm({ productId }:
             <div className="h-5 flex justify-center items-center">
                 {errors.value &&
                     <ErrorMessage message={"Error: " + errors.value?.message} />}
-                <p className={`text-green-500 ${success ? "visible" : "invisible"}`}>
-                    Inventory updated
-                </p>
+         
                 <p className={`text-red-500 ${serverError ? "visible" : "invisible"}`}>
                     Server error
                 </p>

@@ -14,15 +14,13 @@ export default async function ordersPage({ searchParams }:
     const pageSize = 5;
     const page = Math.max(1, Number(params.page ?? 1));
 
-    const orders = await getOrderList(page, pageSize);
-
-    console.log(orders[0]);
+    const orders = await getOrderList();
     
-    
-
-
 
     const totalPages = Math.max(1, Math.ceil(orderCount / pageSize));
+
+
+
 
 
 
@@ -53,14 +51,17 @@ export default async function ordersPage({ searchParams }:
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order No</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Table</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">QTY</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">STATUS</th>
-                                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Mark complete</th>
                                 </tr>
                             </thead>
+
+                            
+                 
+           <OrderList orders={orders} />
+                           
   
-            <OrderList orders={orders}/>
+ 
                
                         </table>
 
