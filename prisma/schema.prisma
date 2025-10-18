@@ -122,6 +122,7 @@ model Order {
     orderNumber Int
     tableNumber String
     cost Float
+    status String?
 
 }
 

@@ -13,7 +13,7 @@ export default async function CartTable(){
 
          if (totalItems == 0) redirect('/');
          
-         const totalCost = cartItems.reduce((sum, item)=> sum + item.product.price, 0);
+        const totalCost = cartItems.reduce((sum, item) => sum + item.quantity * item.product.price, 0);
         
     return (
         <div>
