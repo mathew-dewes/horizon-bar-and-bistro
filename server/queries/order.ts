@@ -39,6 +39,45 @@ const totalRevenue = orders.reduce((total, currentValue) =>{
 }
 
 
+export async function getOrderList(page: number ,take: number){
+  return await prisma.orderItems.findMany({
+    select:{
+      createdAt:true,
+      quantity: true,
+      product:{
+        select:{
+          name:true
+        }
+      },
+      order:{
+        select:{
+          id:true,
+          orderNumber: true,
+          tableNumber: true,
+          user: {
+            select:{
+              name: true
+            }
+          }
+          
+        }
+      }
+      
+    },
+    take,
+    skip: (page -1) * 5,
+    orderBy:{
+      createdAt: "desc"
+    }
+  });
+
+
+}
+
+export async function getOrderItemsCount(){
+  return await prisma.orderItems.count()
+}
+
 export async function getCategoryStats(){
     const ordersItems = await prisma.orderItems.findMany({
         select:{
@@ -99,7 +138,40 @@ export async function getOrdersByRange(range: Date){
 
 }
 
+export async function changeOrderStatus(orderId: string, status:string){
 
+  console.log(orderId);
+  
+
+//   const check = await prisma.order.findUnique({
+//   where: { id: "cmgr5g3z40009uhv4ebme3519" },
+// });
+// console.log(check);
+
+  try {
+      const result =  await prisma.order.update({
+    data:{
+      status
+    },
+    where:{
+      id: orderId
+    }
+  });
+
+  console.log("Status changed");
+
+  return result;
+  
+
+  
+  
+  } catch (error) {
+    console.log(error);
+    
+  }
+
+
+}
 
 
 

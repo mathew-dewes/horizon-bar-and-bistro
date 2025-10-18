@@ -28,7 +28,10 @@ export async function getProductDetails(page: number){
       category: true
     },
     take: 5,
-    skip: (page - 1) * 5
+    skip: (page - 1) * 5,
+    orderBy:{
+      inventoryAmount: "asc"
+    }
   })
 }
 

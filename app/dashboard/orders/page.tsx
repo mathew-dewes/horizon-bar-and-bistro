@@ -1,56 +1,43 @@
-import { getProductDetails } from "@/server/queries/products";
+
 import SideBar from "../_components/Sidebar";
 import Pagination from "./_components/Pagination";
-import ProductList from "../products/_components/ProductList";
-import { Suspense } from "react";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import { getOrderItemsCount, getOrderList } from "@/server/queries/order";
+import OrderList from "./_components/OrderList";
 
 
-export default async function InventoryPage({ searchParams }:
+
+export default async function ordersPage({ searchParams }:
     { searchParams: Promise<{ q?: string, page?: string }> }) {
-
-    // const user = await getCurrentUser();
-    // const userId = user.id;
     const params = await searchParams;
     const q = (params.q ?? "").trim();
-
+    const orderCount = await getOrderItemsCount()
     const pageSize = 5;
     const page = Math.max(1, Number(params.page ?? 1));
 
-    const products = await getProductDetails(page);
+    const orders = await getOrderList(page, pageSize);
 
-    console.log(products);
-
-
-
-    // const where = { userId, ...(q ? { name: { contains: q, mode: "insensitive" as const } } : {}) }
-
-    // const [totalCount, items] = await Promise.all([
-    //     prisma.product.count({ where }),
-    //     await prisma.product.findMany({
-    //         where,
-    //         orderBy: { createdAt: "desc" },
-    //         skip: (page - 1) * pageSize,
-    //         take: pageSize,
-    //     })]);
+    console.log(orders[0]);
+    
+    
 
 
 
-    const totalPages = Math.max(1, Math.ceil(15 / pageSize));
+    const totalPages = Math.max(1, Math.ceil(orderCount / pageSize));
 
 
 
 
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen">
             <SideBar currentPath="/dashboard/orders" />
-            <main className="ml-64 p-8">
+            <main className="ml-64 px-8 mt-10">
+        
                 <div className="mb-8">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h1 className="text-2xl font-semibold text-gray-900">Orders</h1>
-                            <p className="text-sm text-gray-500">Manage your products and track inventory levels.</p>
+                            <h1 className="text-2xl font-semibold">Orders</h1>
+                            <p className="text-sm">Manage your products and track inventory levels.</p>
                         </div>
                     </div>
                 </div>
@@ -62,17 +49,18 @@ export default async function InventoryPage({ searchParams }:
                         <table className="w-full">
                             <thead className="bg-gray-50">
                                 <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">SKU</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantity</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order No</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Table</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">QTY</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">STATUS</th>
+                                    <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Mark complete</th>
                                 </tr>
                             </thead>
-                            <Suspense fallback={<LoadingSpinner text="Hello"/>}>
-            <ProductList page={page}/>
-                            </Suspense>
-
+  
+            <OrderList orders={orders}/>
                
                         </table>
 

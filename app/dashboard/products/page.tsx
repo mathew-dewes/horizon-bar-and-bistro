@@ -6,7 +6,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import { getProductDetails } from "@/server/queries/products";
 
 
-export default async function InventoryPage({ searchParams }:
+export default async function productsPage({ searchParams }:
     { searchParams: Promise<{ q?: string, page?: string }> }) {
     const params = await searchParams;
     const q = (params.q ?? "").trim();
@@ -19,14 +19,14 @@ export default async function InventoryPage({ searchParams }:
 
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen">
             <SideBar currentPath="/dashboard/products" />
-            <main className="ml-64 p-8">
+            <main className="ml-64 px-8 mt-10">
                 <div className="mb-8">
                     <div className="flex items-center justify-between">
                         <div>
-                            <h1 className="text-2xl font-semibold text-gray-900">Products</h1>
-                            <p className="text-sm text-gray-500">Manage your products and track inventory levels.</p>
+                            <h1 className="text-2xl font-semibold">Products</h1>
+                            <p className="text-sm">Manage your products and track inventory levels.</p>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,8 @@ export default async function InventoryPage({ searchParams }:
                 <div className="space-y-6">
 
                     {/* Products table */}
-                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                    <Suspense fallback={<LoadingSpinner text="Loading products..."/>}>
+  <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
                         <table className="w-full">
                             <thead className="bg-gray-50">
                                 <tr>
@@ -44,14 +45,16 @@ export default async function InventoryPage({ searchParams }:
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">New QTY</th>
                                 </tr>
                             </thead>
-                            <Suspense fallback={<LoadingSpinner text="Hello"/>}>
+            
             <ProductList products={products}/>
-                            </Suspense>
+                     
 
                
                         </table>
 
                     </div>
+                    </Suspense>
+                  
                     {totalPages > 1 && <div className="bg-white rounded-lg border border-gray-200 p-6">
                         <Pagination
                             currentPage={page}
