@@ -18,7 +18,7 @@ export async function getOrder(orderNumber: number) {
 };
 
 
-export async function getOrders() {
+export async function getOrderMetrics() {
   const orders = await prisma.order.findMany();
 
   const today = new Date();
@@ -39,31 +39,35 @@ export async function getOrders() {
 }
 
 
-export async function getOrderList() {
+export async function getOrders() {
   return await prisma.order.findMany({
     select:{
-      createdAt: true,
+      createdAt:true,
       orderNumber: true,
       tableNumber: true,
+      totalItems:true,
       status: true,
-      user:{
-        select:{
-          name: true
-        }
-      },
       orderItems:{
         select:{
           quantity: true,
           ready: true,
           product:{
             select:{
-              name: true,
+              name: true
             }
           }
-
         }
-      }
-    }
+      },
+      user:{
+        select:{
+          name: true,
+          
+        }
+      },
+      
+      
+      
+    },
   })
 
 
