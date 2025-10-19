@@ -1,12 +1,12 @@
 
 import SalesByCategory from "./SalesByCatergory";
 import TopSellingProducts from "./TopSellingProduct";
-import { getOrders } from "@/server/queries/order";
+import { getOrderMetrics } from "@/server/queries/order";
 
 
 
 export default async function KeyMetrics() {
-  const { dailyOrders, totalRevenue, averageOrderValue} = await getOrders();
+  const { dailyOrders, totalRevenue, averageOrderValue} = await getOrderMetrics();
 
   return (
     <div className="bg-white rounded-lg p-6">

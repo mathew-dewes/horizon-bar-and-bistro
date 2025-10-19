@@ -1,7 +1,7 @@
 
 import SideBar from "../_components/Sidebar";
 import Pagination from "./_components/Pagination";
-import { getOrderItemsCount, getOrderList } from "@/server/queries/order";
+import { getOrderItemsCount, getOrders } from "@/server/queries/order";
 import OrderList from "./_components/OrderList";
 
 
@@ -14,7 +14,10 @@ export default async function ordersPage({ searchParams }:
     const pageSize = 5;
     const page = Math.max(1, Number(params.page ?? 1));
 
-    const orders = await getOrderList();
+    const orders = await getOrders();
+
+    console.log(orders);
+    
     
 
     const totalPages = Math.max(1, Math.ceil(orderCount / pageSize));

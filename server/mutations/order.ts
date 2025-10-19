@@ -27,6 +27,11 @@ export async function PlaceOrder() {
     (sum, { quantity, price }) => sum + quantity * price,
     0
   );
+
+  const totalItems = Array.from(cartItems.values()).reduce(
+  (sum, { quantity }) => sum + quantity,
+  0
+);
     await prisma.order.create({
         data: {
             userId,
@@ -37,7 +42,8 @@ export async function PlaceOrder() {
             },
             orderNumber,
             tableNumber,
-            cost: totalCost
+            cost: totalCost,
+            totalItems: totalItems
 
         }
     });
