@@ -1,15 +1,16 @@
 "use client";
 
+import { toggleOrderItemReady } from "@/server/mutations/order";
 import { useState } from "react";
-import { toggleReadyStatus } from "@/server/queries/order";
+// import { toggleReadyStatus } from "@/server/queries/order";
 
-export default function CompleteCheckBox({orderId}:
-  {orderId: string}
+export default function CompleteCheckBox({orderId, isChecked}:
+  {orderId: string, isChecked: boolean}
 ) {
 
-  console.log(orderId);
+
   
-    const [checked, setChecked] = useState(false);
+    const [checked, setChecked] = useState(isChecked);
 
 
 
@@ -17,15 +18,15 @@ export default function CompleteCheckBox({orderId}:
     const isChecked = e.target.checked;
     setChecked(isChecked);
 
-    if (isChecked) {
 
-      setTimeout(async () => {
 
-        await toggleReadyStatus("cmgwuoeiy0005uhdch300v4bz", true)
+   
+
+await toggleOrderItemReady(orderId, !checked)
+
   
    
-      }, 600); 
-    }
+ 
   };
     return (
  
@@ -37,6 +38,7 @@ export default function CompleteCheckBox({orderId}:
         onChange={handleChange}
         className="w-4 h-4 accent-sky-300 border-gray-300 rounded-sm focus:ring-sky-300"
       />
+      <p>Mark as ready</p>
     </div>
 
 
