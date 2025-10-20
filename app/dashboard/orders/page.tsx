@@ -1,8 +1,10 @@
 
 import SideBar from "../_components/Sidebar";
 import Pagination from "./_components/Pagination";
-import { getOrderItemsCount, getOrders } from "@/server/queries/order";
-import OrderList from "./_components/OrderList";
+import { getOrderItemsCount} from "@/server/queries/order";
+
+import OrderTable from "./_components/OrderTable";
+import OrderItemsTable from "./_components/OrderItemsTable";
 
 
 
@@ -14,10 +16,6 @@ export default async function ordersPage({ searchParams }:
     const pageSize = 5;
     const page = Math.max(1, Number(params.page ?? 1));
 
-    const orders = await getOrders();
-
-    console.log(orders);
-    
     
 
     const totalPages = Math.max(1, Math.ceil(orderCount / pageSize));
@@ -44,29 +42,15 @@ export default async function ordersPage({ searchParams }:
                 </div>
 
                 <div className="space-y-6">
-
-                    {/* Products table */}
                     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-                        <table className="w-full">
-                            <thead className="bg-gray-50">
-                                <tr>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order No</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Table</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">QTY</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">STATUS</th>
-                                </tr>
-                            </thead>
-
-                            
-                 
-           <OrderList orders={orders} />
-                           
-  
- 
                
-                        </table>
+        <OrderTable/>
+
+                    </div>
+                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+               
+
+        <OrderItemsTable/>
 
                     </div>
                     {totalPages > 1 && <div className="bg-white rounded-lg border border-gray-200 p-6">

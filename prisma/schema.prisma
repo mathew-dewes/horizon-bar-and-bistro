@@ -123,7 +123,7 @@ model Order {
     tableNumber String
     cost Float
     totalItems Int
-    status OrderStatus @default(PENDING)
+    status OrderStatus @default(INPROGRESS)
 
 }
 
@@ -150,9 +150,9 @@ Beer
 }
 
 enum OrderStatus {
-  PENDING
-  INPROGRESS
-  COMPLETE
+   INPROGRESS
+   READY
+   COMPLETE
 }
 
 

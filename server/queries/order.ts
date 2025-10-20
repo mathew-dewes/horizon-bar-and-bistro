@@ -39,25 +39,51 @@ export async function getOrderMetrics() {
 }
 
 
+export async function getOrdersItems() {
+  return await prisma.orderItems.findMany({
+    select:{
+      id:true,
+      createdAt:true,
+      quantity: true,
+      ready: true,
+      order:{
+        select:{
+          orderNumber: true,
+          id: true,
+        }
+      },
+      product:{
+        select:{
+          name: true
+        }
+      }
+    },
+    orderBy:
+   [ { ready: 'asc' }, 
+    { createdAt: 'desc' },],
+    where:{
+      order:{
+        status:{
+          not:"COMPLETE"
+        }
+      }
+    }
+    
+    
+  },)
+
+
+};
+
 export async function getOrders() {
   return await prisma.order.findMany({
     select:{
+      id: true,
       createdAt:true,
       orderNumber: true,
       tableNumber: true,
       totalItems:true,
       status: true,
-      orderItems:{
-        select:{
-          quantity: true,
-          ready: true,
-          product:{
-            select:{
-              name: true
-            }
-          }
-        }
-      },
       user:{
         select:{
           name: true,
@@ -68,10 +94,14 @@ export async function getOrders() {
       
       
     },
+    orderBy:[
+      {createdAt: "desc"}
+    ]
   })
 
 
 }
+
 
 export async function getOrderItemsCount() {
   return await prisma.orderItems.count()

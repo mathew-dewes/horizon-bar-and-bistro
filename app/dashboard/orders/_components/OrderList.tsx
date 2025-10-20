@@ -16,14 +16,7 @@ export default function OrderList({ orders }: {
         totalItems: number,
         user: {
             name: string,
-        },
-        orderItems: {
-            quantity: number,
-            ready: boolean,
-            product: {
-                name: string
-            }
-        }[]
+        }
     }[]
 }) {
 
@@ -44,61 +37,7 @@ export default function OrderList({ orders }: {
 
 
                 return (
-                    <React.Fragment key={key}>
-                        <tr className="hover:bg-gray-50">
-
-
-                            <td className="px-6 py-4 text-sm text-black">{date}</td>
-                            <td className="px-6 py-4 text-sm text-gray-500">{order.orderNumber}</td>
-                            <td className="px-6 py-4 text-sm text-gray-500">{order.user.name}</td>
-                            <td className="px-6 py-4 text-sm text-gray-500">{order.tableNumber}</td>
-                            <td className="px-6 py-4 text-sm text-gray-500">{order.totalItems}</td>
-                            <td className="px-6 py-4 text-sm text-gray-500 font-semibold">{order.status}</td>
-                            {/* <td className="px-6 py-4 text-sm text-gray-500"> */}
-                            {/* <CompleteCheckBox orderId={order.order.id} /> */}
-                            {/* </td> */}
-
-
-
-
-
-                        </tr>
-                        <tr className="bg-gray-100">
-                            <td className="px-6 py-4  text-xs font-semibold text-gray-600">
-                                Product
-                            </td>
-                            <td className="px-6 py-4  text-xs font-semibold text-gray-600">
-                                Quantity
-                            </td>
-                            <td className="px-6 py-4  text-xs font-semibold text-gray-600">
-                                Location
-                            </td>
-                            <td className="px-6 py-4  text-xs font-semibold text-gray-600">
-                                Status
-                            </td>
-                            {/* Empty filler cells to match column count */}
-                            <td className="px-6 py-2"></td>
-                            <td className="px-6 py-2"></td>
-
-                        </tr>
-                        {order.orderItems.map((item, key) => {
-                            return (
-                                <tr key={key} className="bg-gray-50">
-
-                                    <td className="px-6 py-4 text-sm text-gray-500">{item.product.name}</td>
-                                    <td className="px-6 py-4 text-sm text-gray-500">X {item.quantity}</td>
-                                    <td className="px-6 py-4 text-sm text-gray-500">Kitchen</td>
-                                    <td className="px-6 py-4 text-sm text-gray-500">{item.ready ? "Ready" : "Preparing"}</td>
-
-                                    <td className="px-6 py-4 text-sm text-gray-500"></td>
-                                    <td className="px-6 py-4 text-sm text-gray-500"></td>
-
-
-                                </tr>
-                            )
-                        })}
-
-                    </React.Fragment>
+           
 
 
                 )
