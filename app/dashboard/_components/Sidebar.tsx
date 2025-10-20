@@ -19,7 +19,7 @@ export default async function SideBar({ currentPath = '/dashboard', tableNumber 
         const navigation = [
         { name: "Dashboard", href: "/dashboard", icon: BarChart3 },
         { name: "Orders", href: "/dashboard/orders", icon: Package },
-        { name: "Open Orders", href: "/dashboard/orders/items", icon: Package },
+        { name: "Order Items", href: "/dashboard/orders/items", icon: Package },
         { name: "Products", href: "/dashboard/products", icon: Plus },
         { name: isLoggedIn() , href: `/auth/login?table=${tableNumber}`, icon: Plus },
 

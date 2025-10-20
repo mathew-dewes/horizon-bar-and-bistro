@@ -50,7 +50,7 @@ export default async function ordersPage({ params }:
                                 <p>Order: {orderDetails?.orderNumber}</p>
                                 <div className="flex items-center gap-2 my-2">
                                 <p>Status:</p>
-                                <div className={`bg-${style}-300 w-fit p-2 rounded-xl text-black font-semibold`}>{orderDetails?.status}</div>
+                                <div style={{backgroundColor: style}} className={`w-fit p-2 rounded-xl text-black font-semibold`}>{orderDetails?.status}</div>
                                 </div>
                            
                                 <p>Date: {orderDetails?.createdAt.toLocaleDateString()} - {hours + ":" + minutes}</p>

@@ -61,7 +61,7 @@ export async function getOrderMetrics() {
 }
 
 
-export async function getOrdersItems() {
+export async function getOrdersItems(status: OrderStatus) {
   return await prisma.orderItems.findMany({
     select:{
       id:true,
@@ -85,9 +85,7 @@ export async function getOrdersItems() {
     { createdAt: 'desc' },],
     where:{
       order:{
-        status:{
-          not:"COMPLETE"
-        }
+        status
       }
     }
     

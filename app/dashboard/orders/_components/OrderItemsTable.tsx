@@ -1,10 +1,13 @@
 import { getOrdersItems } from "@/server/queries/order";
 import React from "react"
 import CompleteCheckBox from "./CompleteCheckBox";
+import { OrderStatus } from "@prisma/client";
 
-export default async function OrderItemsTable(){
+export default async function OrderItemsTable({status = "INPROGRESS"}:{
+    status?: OrderStatus
+}){
 
-       const orders = await getOrdersItems();
+       const orders = await getOrdersItems(status);
 
        if (orders.length === 0){
         return (
