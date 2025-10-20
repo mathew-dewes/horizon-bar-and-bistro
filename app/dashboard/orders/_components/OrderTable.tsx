@@ -1,6 +1,7 @@
 import { getOrders } from "@/server/queries/order";
 import React from "react"
 import MarkAsCompleted from "./MarkAsComplete";
+import Link from "next/link";
 
 export default async function OrderTable(){
 
@@ -17,6 +18,7 @@ export default async function OrderTable(){
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">QTY</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">STATUS</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">ACTIONS</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"></th>
                                 </tr>
                             </thead>
 
@@ -46,9 +48,13 @@ export default async function OrderTable(){
                                                <td className="px-6 py-4 text-sm text-gray-500">{order.totalItems}</td>
                                                <td className="px-6 py-4 text-sm text-gray-500 font-semibold">{order.status}</td>
                                                <td className="px-6 py-4 text-sm text-gray-500">
-                                               <MarkAsCompleted orderId={order.id} isComplete={order.status === "COMPLETE"}/>
+                                                {order.status !== "INPROGRESS" && <MarkAsCompleted orderId={order.id} isComplete={order.status === "COMPLETE"}/>}
+                                   
                
                                                </td>
+                                                        <td className="px-6 py-4 text-sm text-gray-500 font-semibold cursor-pointer">
+                                                            <Link href={'/dashboard/orders/' + order.id}>View</Link>
+                                                        </td>
                    
                    
                    
