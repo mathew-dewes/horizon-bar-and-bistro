@@ -1,81 +1,52 @@
-
-import { getOrderDetails } from "@/server/queries/order";
+import { getOrder } from "@/server/queries/order";
 import SideBar from "../../_components/Sidebar";
-import SingleOrderItemsTable from "./_components/SingleOrderTable";
+import OrderItems from "./_components/OrderItems";
+
+
+export default async function page({params}:{
+    params: Promise<{id: string}>
+}) {
+
+    const {id} = await params;
+
+    const order = await getOrder(id);
 
 
 
-export default async function ordersPage({ params }:
-    { params: Promise<{ id: string }> }) {
-
-
-
-    const { id } = await params;
-
-    console.log(id);
-
-    const orderDetails = await getOrderDetails(id);
-
-    console.log(orderDetails);
-
-    const d = new Date(orderDetails!.createdAt);
-    const hours = String(d.getHours()).padStart(2, "0");
-    const minutes = String(d.getMinutes()).padStart(2, "0");
-
-    let style;
-
-    switch(orderDetails?.status){
-        case "INPROGRESS":
-            style = "orange"
-            break;
-        case "READY":
-            style = "blue"
-            break;
-        default:
-            style = "green"
-    }
-
+    
     return (
         <div className="min-h-screen">
-            <SideBar currentPath={"/dashboard/orders"}  />
+            <SideBar currentPath="/dashboard/orders" />
             <main className="lg:ml-64 px-8 mt-10">
-
-                <div className="mb-8">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-semibold">Orders</h1>
-                            <p className="text-sm">Manage your products and track inventory levels.</p>
-                            {/* Add order info here */}
-                            <div className="mt-5 flex flex-col gap-1">
-                                <p>Order: {orderDetails?.orderNumber}</p>
-                                <div className="flex items-center gap-2 my-2">
-                                <p>Status:</p>
-                                <div className={`bg-${style}-300 w-fit p-2 rounded-xl text-black font-semibold`}>{orderDetails?.status}</div>
-                                </div>
-                           
-                                <p>Date: {orderDetails?.createdAt.toLocaleDateString()} - {hours + ":" + minutes}</p>
-
-                                <p>Customer: {orderDetails?.user.name}</p>
-                                <p>Table: {orderDetails?.tableNumber}</p>
-                                <p>Sub total: ${orderDetails?.cost}</p>
-                            </div>
-
-
-
-
-                        </div>
-                    </div>
-                </div>
+        
 
                 <div className="space-y-6">
+                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden p-6">
+                        <h1 className="text-lg font-bold uppercase text-gray-900">Order: {order?.orderNumber}</h1>
+                        <div className="flex flex-col gap-1 my-5">
+                  <p className="uppercase text-gray-900">Date: {order?.createdAt.toLocaleDateString()}</p>
+                        <p className="uppercase text-gray-900">Table: {order?.tableNumber}</p>
+                        <p className="uppercase text-gray-900">Total items: {order?.totalItems}</p>
+                        <p className="uppercase text-gray-900">Total cost: ${order?.cost}</p>
+                        <p className=" text-gray-900">Customer: {order?.user.name}</p>
+                        </div>
+      
+             
+               
 
-                    <div className="bg-white w-3/4 rounded-lg border border-gray-200 overflow-hidden">
-
-
-                        <SingleOrderItemsTable orderId={id} />
 
                     </div>
+                    <div>
+                       
+                    </div>
+                    <div className="bg-white rounded-lg border border-gray-200 overflow-hidden w-1/2">
+                       <h1 className="text-lg font-bold uppercase p-6 text-black">order items</h1>
+                                        <OrderItems orderId={id}/>
+                    </div>
+            
 
+
+           
 
                 </div>
             </main>

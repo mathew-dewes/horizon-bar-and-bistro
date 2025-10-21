@@ -3,9 +3,13 @@ import React from "react"
 import Link from "next/link";
 
 
-export default async function OrderTable(){
+export default async function WaitersOrderTable({orderId}:{
+    orderId: string
+}){
 
        const orders = await getOrders();
+    
+
 
    
     return (
@@ -19,7 +23,7 @@ export default async function OrderTable(){
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Table</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Items</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Cost</th>
-                 
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"></th>
                                 </tr>
                             </thead>
@@ -29,6 +33,8 @@ export default async function OrderTable(){
                  
                     <tbody className="bg-white divide-y divide-gray-200">
                                {orders.map((order, key) => {
+
+                                const highlight = orderId == order.id;
                                    const d = new Date(order.createdAt);
                                    const day = String(d.getDate()).padStart(2, "0");
                                    const month = String(d.getMonth() + 1).padStart(2, "0");
@@ -40,7 +46,7 @@ export default async function OrderTable(){
                    
                                    return (
                                        <React.Fragment key={key}>
-                                           <tr className="hover:bg-gray-50">
+                                           <tr className={`${highlight ? "bg-sky-200" : "hover:bg-gray-50"}`}>
                    
                    
                                                <td className="px-6 py-4 text-sm text-black">{date}</td>
@@ -49,10 +55,10 @@ export default async function OrderTable(){
                                                <td className="px-6 py-4 text-sm text-gray-500">{order.tableNumber}</td>
                                                <td className="px-6 py-4 text-sm text-gray-500">{order.totalItems}</td>
                                                <td className="px-6 py-4 text-sm text-gray-500">${order.cost}</td>
-                              
+                                               <td className="px-6 py-4 text-sm text-gray-500 font-semibold">{order.status}</td>
                                
                                                         <td className="px-6 py-4 text-sm text-gray-500 font-semibold cursor-pointer">
-                                                            <Link href={'/dashboard/orders/' + order.id}>View</Link>
+                                                            <Link href={'/dashboard/orders/waiter?order=' + order.id}>View</Link>
                                                         </td>
                    
                    

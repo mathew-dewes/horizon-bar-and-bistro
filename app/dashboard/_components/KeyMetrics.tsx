@@ -11,7 +11,7 @@ export default async function KeyMetrics() {
   return (
     <div className="bg-white rounded-lg p-6">
       <h2 className="text-lg font-bold uppercase text-gray-900 mb-6">
-        Key Metrics
+      Metrics
       </h2>
       <div>
         <div className="flex justify-center gap-20 flex-wrap">
