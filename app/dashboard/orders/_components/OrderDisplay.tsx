@@ -1,33 +1,29 @@
-import { getSingleOrderItems } from "@/server/queries/order";
+import { getOrderItems } from "@/server/queries/order";
 import React from "react"
 
-export default async function SingleOrderItemsTable({orderId}:
-    {orderId: string}
-){
 
-       const orders = await getSingleOrderItems(orderId);
-       
 
-       if (orders.length === 0){
-        return (
-            <div className="p-10 text-2xl font-semibold text-black">
-                <h1>There are no orders</h1>
-            </div>
-        )
-       }
-       
+export default async function OrderDisplay({orderId}:{
+    orderId: string
+}){
+ 
+    const orders = await getOrderItems(orderId);
 
     
+       
+
+   
     return (
 
                  <table className="w-full">
                             <thead className="bg-gray-50">
                                 <tr>
+                    
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">QTY</th>
-                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">COST</th>
-                         
-                                
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Price</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">cost</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                     
                                 </tr>
                             </thead>
@@ -36,22 +32,24 @@ export default async function SingleOrderItemsTable({orderId}:
     
                  
                     <tbody className="bg-white divide-y divide-gray-200">
-                               {orders.map((order) => {
+                               {orders?.map((order, key) => {
                  
                    
-
+                   
                    
                                    return (
-                                       <React.Fragment key={order.id}>
+                                       <React.Fragment key={key}>
                                            <tr className="hover:bg-gray-50">
                    
-                                               <td className="px-6 py-4 text-sm text-gray-500">{order.product.name}</td>
+                   
+                                               <td className="px-6 py-4 text-sm text-black">{order.product.name}</td>
                                                <td className="px-6 py-4 text-sm text-gray-500">{order.quantity}</td>
-                                               <td className="px-6 py-4 text-sm text-gray-500">${order.quantity * order.product.price}</td>
-                              
-                                               
+                                               <td className="px-6 py-4 text-sm text-gray-500">{order.product.price}</td>
+                                               <td className="px-6 py-4 text-sm text-gray-500">{order.quantity * order.product.price}</td>
+                                               <td className="px-6 py-4 text-sm text-gray-500">{order.order.status}</td>
                 
-                                   
+                               
+                                    
                    
                    
                    

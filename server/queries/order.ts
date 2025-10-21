@@ -6,19 +6,21 @@ import { SalesInterval } from "./types";
 
 
 
-export async function getOrder(orderNumber: number) {
+export async function getOrder(id: string) {
 
-  const order = await prisma.order.findFirst({
-    where: { orderNumber },
+  const order = await prisma.order.findUnique({
+    where: { id },
     include: {
-      orderItems: true
+      orderItems: true,
+      user:true
     }
   });
   return order
 };
 
 export async function getOrderDetails(id: string){
-  return await prisma.order.findUnique({
+  if (!id) return
+  return await prisma.order.findFirst({
     where:{
       id
     },
@@ -29,7 +31,6 @@ export async function getOrderDetails(id: string){
       status:true,
       cost: true,
       totalItems: true,
-      orderItems: true,
       user:{
         select:{
           name: true
@@ -95,37 +96,6 @@ export async function getOrdersItems(status: OrderStatus) {
 
 };
 
-export async function getSingleOrderItems(orderId: string){
-    return await prisma.orderItems.findMany({
-    select:{
-      id:true,
-      createdAt:true,
-      quantity: true,
-      ready: true,
-      order:{
-        select:{
-          orderNumber: true,
-          id: true,
-          status:true
-        }
-      },
-      product:{
-        select:{
-          name: true,
-          price:true
-        }
-      }
-    },
-    orderBy:
-   [ { ready: 'asc' }, 
-    { createdAt: 'desc' },],
-    where:{
-      orderId
-    }
-    
-    
-  },)
-}
 
 export async function getOrders() {
   return await prisma.order.findMany({
@@ -136,6 +106,7 @@ export async function getOrders() {
       tableNumber: true,
       totalItems:true,
       status: true,
+      cost:true,
       user:{
         select:{
           name: true,
@@ -152,6 +123,34 @@ export async function getOrders() {
   })
 
 
+}
+
+export async function getOrderItems(id: string){
+  if (!id) return
+  return await prisma.orderItems.findMany({
+    where:{
+      order:{
+        id
+      }
+    },
+    select:{
+      product:{
+       select:{
+        name: true,
+        price:true,
+
+       },
+       
+      },
+      quantity: true,
+      order:{
+        select:{
+          status: true
+        }
+      }
+
+    }
+  })
 }
 
 

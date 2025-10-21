@@ -22,20 +22,15 @@ export default async function productsPage({ searchParams }:
         <div className="min-h-screen">
             <SideBar currentPath="/dashboard/products" />
             <main className="ml-64 px-8 mt-10">
-                <div className="mb-8">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <h1 className="text-2xl font-semibold">Products</h1>
-                            <p className="text-sm">Manage your products and track inventory levels.</p>
-                        </div>
-                    </div>
-                </div>
+
 
                 <div className="space-y-6">
+                    
 
                     {/* Products table */}
                     <Suspense fallback={<LoadingSpinner text="Loading products..."/>}>
   <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
+                <h1 className="text-lg font-bold uppercase text-gray-900 p-6">Inventory</h1>
                         <table className="w-full">
                             <thead className="bg-gray-50">
                                 <tr>
